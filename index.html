@@ -3,261 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tebogo Mathaba | Software Engineer</title>
-    <meta name="description" content="Portfolio of Tebogo Mathaba, Software Engineer specializing in Python, Java, and Data Engineering.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Tebogo Mathaba | Future Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #38bdf8; /* Light Blue */
-            --secondary: #94a3b8; /* Slate Gray */
-            --text-main: #f8fafc;
-            --text-muted: #cbd5e1;
-            --accent: #0ea5e9;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --primary: #00f2ff; /* Cyber Cyan */
+            --secondary: #7000ff; /* Electric Purple */
+            --text: #ffffff;
+            --text-gray: #a1a1aa;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Custom cursor container */ }
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- UTILITIES --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* --- CUSTOM CURSOR --- */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+            transform: translate(-50%, -50%);
+        }
+        #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
         }
 
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            display: inline-block;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 5px;
+        /* --- ANIMATED BACKGROUND --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- NAVIGATION --- */
+        /* --- NAV --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .nav-content {
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            color: var(--primary);
+            font-size: 1.5rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+        .logo span { color: var(--primary); }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 30px;
             font-size: 0.9rem;
-            font-weight: 500;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            text-align: center;
-            padding-top: 60px;
-            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%);
+            align-items: flex-start;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #94a3b8);
+            font-size: 5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--bg-dark);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--text-muted);
-            color: var(--text-main);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* --- SKILLS SECTION --- */
-        .skills-section {
-            padding: 100px 0;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-card {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .skill-card i {
+        .typewriter {
             font-size: 2rem;
-            margin-bottom: 15px;
+            color: var(--text-gray);
+            font-family: 'Space Grotesk', monospace;
+            height: 40px; /* Prevent layout shift */
+        }
+
+        .cursor-blink {
+            animation: blink 1s infinite;
             color: var(--primary);
         }
 
-        /* --- PROJECTS SECTION --- */
-        .projects-section {
-            padding: 100px 0;
-            background-color: rgba(255,255,255,0.02);
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .btn-glow {
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .project-grid {
+        .btn-glow:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        /* --- SECTIONS (Common) --- */
+        section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-header {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        /* --- GLASS CARDS --- */
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        .project-card {
-            background: var(--bg-card);
-            border-radius: 12px;
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 15px;
+            transition: 0.4s;
+            backdrop-filter: blur(10px);
+            position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            background: var(--glass-hover);
+            box-shadow: 0 10px 40px -10px rgba(0, 242, 255, 0.1);
         }
 
-        .project-content {
-            padding: 25px;
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .folder-icon { color: var(--primary); font-size: 1.5rem; }
-        
-        .project-links a {
-            color: var(--text-muted);
-            margin-left: 15px;
-            font-size: 1.2rem;
-        }
-        .project-links a:hover { color: var(--primary); }
-
-        .project-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .project-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
             margin-bottom: 20px;
-            min-height: 60px;
         }
 
-        .tech-stack {
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .tags {
+            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            font-size: 0.8rem;
-            color: var(--primary);
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-gray);
             font-family: monospace;
         }
 
-        /* --- EXPERIENCE --- */
-        .experience-section {
-            padding: 100px 0;
-        }
-
+        /* --- EXPERIENCE TIMELINE --- */
         .timeline-item {
-            border-left: 2px solid var(--bg-card);
+            border-left: 2px solid var(--border);
             padding-left: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             position: relative;
         }
 
@@ -270,237 +266,322 @@
             height: 10px;
             background: var(--primary);
             border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
         }
 
-        .timeline-date {
+        .year {
             color: var(--primary);
             font-family: monospace;
             margin-bottom: 5px;
             display: block;
         }
 
-        .timeline-role { font-size: 1.2rem; font-weight: 700; }
-        .timeline-company { color: var(--text-muted); margin-bottom: 10px; display: block; }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 50px 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-        }
-
-        .social-links {
-            margin-bottom: 20px;
-        }
-        .social-links a {
-            margin: 0 15px;
-            font-size: 1.5rem;
-            color: var(--text-muted);
-        }
-        .social-links a:hover { color: var(--primary); }
+        .role { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+        .company { font-size: 1rem; color: var(--text-gray); }
 
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Simplified for this snippet */
+            .hero h1 { font-size: 3rem; }
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            #cursor, #cursor-dot { display: none; } /* Disable custom cursor on touch */
+            * { cursor: auto; }
+        }
+
+        /* --- SCROLL REVEAL CLASS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
+    <div id="cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <canvas id="canvas-container"></canvas>
+
     <nav>
-        <div class="container nav-content">
-            <a href="#" class="logo">TM.</a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#experience">Experience</a>
-                <a href="mailto:tebogomathaba09@gmail.com" style="color: var(--primary);">Hire Me</a>
-            </div>
+        <div class="logo">Tebogo<span>.Dev</span></div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Stack</a>
+            <a href="#projects">Work</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="container">
-            <p style="color: var(--primary); margin-bottom: 10px; font-family: monospace;">Hi, my name is</p>
-            <h1>Tebogo Mathaba.</h1>
-            <h2 style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px; font-weight: 700;">I build data-driven solutions.</h2>
-            <p>I am a Software Engineer based in Johannesburg, specializing in Python, Java, and Power BI. I bridge the gap between technical operations and strategic business decisions.</p>
-            <div class="hero-btns">
-                <a href="#projects" class="btn btn-primary">Check out my work</a>
-                <a href="#contact" class="btn btn-outline">Get in touch</a>
+        <div class="hero-subtitle">Hello, I am</div>
+        <h1>Tebogo Mathaba</h1>
+        <div class="typewriter">I build <span id="typing-text"></span><span class="cursor-blink">_</span></div>
+        <a href="#projects" class="btn-glow">Explore Portfolio</a>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-header reveal">Technical Arsenal</h2>
+        <div class="grid">
+            <div class="card reveal">
+                <i class="fa-brands fa-python"></i>
+                <h3>Python Development</h3>
+                <p>Advanced scripting, data analysis with Pandas, and GUI applications with Tkinter. I automate the boring stuff.</p>
+                <div class="tags">
+                    <span class="tag">Pandas</span>
+                    <span class="tag">NumPy</span>
+                    <span class="tag">Automation</span>
+                </div>
+            </div>
+            <div class="card reveal">
+                <i class="fa-solid fa-database"></i>
+                <h3>Data Engineering</h3>
+                <p>Building robust data pipelines. Experience with SQL, PostgreSQL, and Power BI for enterprise-grade analytics.</p>
+                <div class="tags">
+                    <span class="tag">SQL</span>
+                    <span class="tag">PowerBI</span>
+                    <span class="tag">ETL</span>
+                </div>
+            </div>
+            <div class="card reveal">
+                <i class="fa-brands fa-java"></i>
+                <h3>Java Systems</h3>
+                <p>Object-oriented programming and system architecture. Building scalable backend solutions.</p>
+                <div class="tags">
+                    <span class="tag">OOP</span>
+                    <span class="tag">Swing</span>
+                    <span class="tag">Algorithms</span>
+                </div>
+            </div>
+            <div class="card reveal">
+                <i class="fa-brands fa-microsoft"></i>
+                <h3>Azure & DevOps</h3>
+                <p>Certified Azure Developer (AZ-204). Capable of deploying and managing cloud infrastructure.</p>
+                <div class="tags">
+                    <span class="tag">Azure</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">CI/CD</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="skills-section">
-        <div class="container">
-            <h2 class="section-title">Technical Arsenal</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <i class="fab fa-python"></i>
-                    <h3>Python</h3>
+    <section id="projects">
+        <h2 class="section-header reveal">Featured Work</h2>
+        <div class="grid">
+            <div class="card reveal">
+                <h3>Task Management Suite</h3>
+                <p>A sophisticated productivity tool with a custom graphical interface. Handles data persistence and user workflow optimization.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Tkinter</span>
+                    <span class="tag">Java</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-java"></i>
-                    <h3>Java</h3>
+                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" style="display:block; margin-top:15px; color:var(--primary); text-decoration:none;">View Code &rarr;</a>
+            </div>
+
+            <div class="card reveal">
+                <h3>Enterprise Data Dashboard</h3>
+                <p>Interactive Power BI dashboards designed for high-level business management. Transforms raw SQL data into actionable strategy.</p>
+                <div class="tags">
+                    <span class="tag">Power BI</span>
+                    <span class="tag">DAX</span>
+                    <span class="tag">Business Logic</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-database"></i>
-                    <h3>SQL & PostgreSQL</h3>
+            </div>
+
+            <div class="card reveal">
+                <h3>Ubuntu Pay</h3>
+                <p>A secure, responsive fintech interface designed for seamless transaction processing.</p>
+                <div class="tags">
+                    <span class="tag">Fintech</span>
+                    <span class="tag">Web Dev</span>
+                    <span class="tag">UX/UI</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3>Power BI</h3>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-docker"></i>
-                    <h3>Docker</h3>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-js"></i>
-                    <h3>JavaScript</h3>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-microsoft"></i>
-                    <h3>Azure (AZ-204)</h3>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-code-branch"></i>
-                    <h3>Git & GitHub</h3>
-                </div>
+                <a href="https://github.com/tebogomathaba/Ubutu_Pay.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary); text-decoration:none;">View Site &rarr;</a>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="project-grid">
+    <section id="experience">
+        <h2 class="section-header reveal">The Journey</h2>
+        <div style="max-width: 800px;">
+            <div class="timeline-item reveal">
+                <span class="year">2022 - PRESENT</span>
+                <div class="role">Software Engineering Student</div>
+                <div class="company">WeThinkCode_</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Mastering full-stack development through peer-to-peer learning. Focusing on algorithms, system design, and collaborative coding.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <span class="year">2021 - 2022</span>
+                <div class="role">Assistant Manager</div>
+                <div class="company">Investable</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Bridging the gap between technical operations and business strategy. Managed team workflows and client deliverables.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="text-align: center; padding-bottom: 50px;" id="contact">
+        <h2 style="font-size: 3rem; margin-bottom: 20px;" class="reveal">Ready to collaborate?</h2>
+        <p style="color: var(--text-gray); margin-bottom: 40px;" class="reveal">I am currently available for Software Engineering roles.</p>
+        <a href="mailto:tebogomathaba09@gmail.com" class="btn-glow reveal">Initialize Contact</a>
+        <div style="margin-top: 50px; color: var(--border);">
+            <a href="https://github.com/tebogomathaba" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. TYPEWRITER EFFECT ---
+        const textElement = document.getElementById('typing-text');
+        const phrases = ['Data Solutions', 'Python Apps', 'Java Systems', 'Business Strategy'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+
+        // --- 2. CUSTOM CURSOR ---
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        // Hover effect for links
+        document.querySelectorAll('a, .card').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursor.style.borderColor = '#00f2ff';
+                cursor.style.backgroundColor = 'rgba(0, 242, 255, 0.1)';
+            });
+            item.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.borderColor = '#00f2ff';
+                cursor.style.backgroundColor = 'transparent';
+            });
+        });
+
+
+        // --- 3. SCROLL REVEAL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+        // --- 4. PARTICLE BACKGROUND (The "Fascinating" Part) ---
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1; // Random size
+                this.speedX = (Math.random() * 1.5) - 0.75;
+                this.speedY = (Math.random() * 1.5) - 0.75;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Bounce off edges
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000; // Density
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
                 
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="fas fa-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Task Management Suite</h3>
-                        <p class="project-desc">A cross-platform productivity tool built with Python (Tkinter) and Java (Swing). Features include task persistence, categorization, and a custom GUI framework.</p>
-                        <div class="tech-stack">
-                            <span>Python</span>
-                            <span>Java</span>
-                            <span>Swing</span>
-                            <span>Tkinter</span>
-                        </div>
-                    </div>
-                </div>
+                // Draw connections (Neural Network effect)
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${1 - distance/100})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
 
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="fas fa-chart-line folder-icon"></i>
-                            <div class="project-links">
-                                <a href="#"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Enterprise BI Dashboard</h3>
-                        <p class="project-desc">Interactive business intelligence dashboards enabling data-driven decisions. Includes complex SQL queries and custom Power BI visualizations.</p>
-                        <div class="tech-stack">
-                            <span>Power BI</span>
-                            <span>SQL</span>
-                            <span>DAX</span>
-                            <span>Data Modeling</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="fas fa-robot folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/Yolanda-loo/Web_Srapper" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Automated Web Scraper</h3>
-                        <p class="project-desc">A Python automation script using BeautifulSoup and Pandas to extract structured data from websites for market analysis.</p>
-                        <div class="tech-stack">
-                            <span>Python</span>
-                            <span>BeautifulSoup</span>
-                            <span>Pandas</span>
-                            <span>Automation</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="fas fa-wallet folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/tebogomathaba/Ubutu_Pay.github.io" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Ubuntu Pay</h3>
-                        <p class="project-desc">A responsive web-based payment gateway interface focusing on user experience and secure transaction flows.</p>
-                        <div class="tech-stack">
-                            <span>HTML5</span>
-                            <span>CSS3</span>
-                            <span>JavaScript</span>
-                            <span>FinTech</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="experience-section">
-        <div class="container">
-            <h2 class="section-title">Experience & Education</h2>
-            
-            <div class="timeline-item">
-                <span class="timeline-date">2022 - Present</span>
-                <h3 class="timeline-role">Software Development Student</h3>
-                <span class="timeline-company">WeThinkCode_</span>
-                <p>Intensive peer-to-peer software engineering training. mastering algorithms, data structures, and full-stack development in Python and Java.</p>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-date">2021 - 2022</span>
-                <h3 class="timeline-role">Assistant Manager</h3>
-                <span class="timeline-company">Investable</span>
-                <p>Managed operational workflows and assisted in strategic planning, bridging the gap between management and technical teams.</p>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-date">2019 - 2020</span>
-                <h3 class="timeline-role">Management Assistant</h3>
-                <span class="timeline-company">Volkswagen</span>
-                <p>Supported administrative functions and process optimization within a corporate environment.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container">
-            <h2 style="color: var(--text-main); margin-bottom: 20px;">Let's Build Something Together</h2>
-            <p style="margin-bottom: 30px;">I am currently looking for new opportunities in Software Engineering.</p>
-            
-            <div class="social-links">
-                <a href="https://github.com/tebogomathaba" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:tebogomathaba09@gmail.com"><i class="fas fa-envelope"></i></a>
-            </div>
-
-            <p style="font-size: 0.8rem;">&copy; 2026 Tebogo Mathaba. Built with HTML & CSS.</p>
-        </div>
-    </footer>
-
+        init();
+        animate();
+    </script>
 </body>
 </html>
