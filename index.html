@@ -19,7 +19,7 @@
             --text-gray: #a1a1aa;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Custom cursor container */ }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
         body {
             background-color: var(--bg);
@@ -130,10 +130,10 @@
         }
 
         .typewriter {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--text-gray);
             font-family: 'Space Grotesk', monospace;
-            height: 40px; /* Prevent layout shift */
+            height: 40px; 
         }
 
         .cursor-blink {
@@ -166,7 +166,7 @@
             box-shadow: 0 0 30px var(--primary);
         }
 
-        /* --- SECTIONS (Common) --- */
+        /* --- SECTIONS --- */
         section {
             padding: 100px 10%;
             position: relative;
@@ -190,7 +190,7 @@
             background: var(--primary);
         }
 
-        /* --- GLASS CARDS --- */
+        /* --- CARDS --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -202,14 +202,14 @@
             border: 1px solid var(--border);
             padding: 30px;
             border-radius: 15px;
-            transition: 0.4s;
+            transition: 0.1s;
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .card:hover {
-            transform: translateY(-10px);
             border-color: var(--primary);
             background: var(--glass-hover);
             box-shadow: 0 10px 40px -10px rgba(0, 242, 255, 0.1);
@@ -249,7 +249,7 @@
             font-family: monospace;
         }
 
-        /* --- EXPERIENCE TIMELINE --- */
+        /* --- TIMELINE --- */
         .timeline-item {
             border-left: 2px solid var(--border);
             padding-left: 30px;
@@ -279,16 +279,27 @@
         .role { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
         .company { font-size: 1rem; color: var(--text-gray); }
 
+        /* --- QUOTE BOX --- */
+        .quote-box {
+            text-align: center;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.01);
+            font-style: italic;
+            font-family: 'Space Grotesk', serif;
+        }
+
         /* --- MOBILE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
             nav { padding: 20px; }
             .nav-links { display: none; }
-            #cursor, #cursor-dot { display: none; } /* Disable custom cursor on touch */
+            #cursor, #cursor-dot { display: none; }
             * { cursor: auto; }
         }
 
-        /* --- SCROLL REVEAL CLASS --- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -313,119 +324,216 @@
             <a href="#about">About</a>
             <a href="#skills">Stack</a>
             <a href="#projects">Work</a>
+            <a href="#terminal-section">Terminal</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
-    <section class="hero">
+    <section class="hero" id="about">
         <div class="hero-subtitle">Hello, I am</div>
         <h1>Tebogo Mathaba</h1>
-        <div class="typewriter">I build <span id="typing-text"></span><span class="cursor-blink">_</span></div>
+        <div class="typewriter"><span id="typing-text"></span><span class="cursor-blink">_</span></div>
+        <p style="margin-top: 20px; max-width: 600px; color: var(--text-gray);">
+            Crafting innovative tech solutions with a blend of creativity, technical expertise, and a passion for business management.
+        </p>
         <a href="#projects" class="btn-glow">Explore Portfolio</a>
     </section>
 
+    <section>
+        <h2 class="section-header reveal">About Me</h2>
+        <div class="grid">
+            <div class="card reveal" style="grid-column: span 3;">
+                <h3>The Mission</h3>
+                <p>
+                    I am an enthusiastic Software Engineer and Data Analyst dedicated to empowering communities through technology. 
+                    I'm committed to mastering full-stack development with a focus on Java, Python, and JavaScript. 
+                    Currently, I'm diving deeper into software engineering at <strong>WeThinkCode</strong> and exploring cloud technologies like Microsoft Azure.
+                </p>
+                <br>
+                <p>
+                    <i class="fas fa-map-marker-alt" style="font-size: 1rem; margin-right: 5px;"></i> Johannesburg, Gauteng, South Africa
+                </p>
+            </div>
+        </div>
+    </section>
+
     <section id="skills">
-        <h2 class="section-header reveal">Technical Arsenal</h2>
+        <h2 class="section-header reveal">Tech Toolbox</h2>
         <div class="grid">
             <div class="card reveal">
                 <i class="fa-brands fa-python"></i>
-                <h3>Python Development</h3>
-                <p>Advanced scripting, data analysis with Pandas, and GUI applications with Tkinter. I automate the boring stuff.</p>
+                <h3>Full Stack & Scripts</h3>
+                <p>Building secure web apps and automation scripts.</p>
                 <div class="tags">
-                    <span class="tag">Pandas</span>
-                    <span class="tag">NumPy</span>
-                    <span class="tag">Automation</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Tailwind CSS</span>
+                    <span class="tag">C#</span>
                 </div>
             </div>
             <div class="card reveal">
                 <i class="fa-solid fa-database"></i>
-                <h3>Data Engineering</h3>
-                <p>Building robust data pipelines. Experience with SQL, PostgreSQL, and Power BI for enterprise-grade analytics.</p>
+                <h3>Data & Analytics</h3>
+                <p>Creating impactful dashboards and performing complex analysis.</p>
                 <div class="tags">
+                    <span class="tag">Power BI</span>
                     <span class="tag">SQL</span>
-                    <span class="tag">PowerBI</span>
-                    <span class="tag">ETL</span>
+                    <span class="tag">Data Analysis</span>
                 </div>
             </div>
             <div class="card reveal">
-                <i class="fa-brands fa-java"></i>
-                <h3>Java Systems</h3>
-                <p>Object-oriented programming and system architecture. Building scalable backend solutions.</p>
+                <i class="fa-brands fa-aws"></i>
+                <h3>Cloud & DevOps</h3>
+                <p>Deploying scalable solutions on the cloud.</p>
                 <div class="tags">
-                    <span class="tag">OOP</span>
-                    <span class="tag">Swing</span>
-                    <span class="tag">Algorithms</span>
+                    <span class="tag">Azure (AZ-204)</span>
+                    <span class="tag">AWS Solutions</span>
+                    <span class="tag">Firebase</span>
                 </div>
             </div>
-            <div class="card reveal">
-                <i class="fa-brands fa-microsoft"></i>
-                <h3>Azure & DevOps</h3>
-                <p>Certified Azure Developer (AZ-204). Capable of deploying and managing cloud infrastructure.</p>
-                <div class="tags">
-                    <span class="tag">Azure</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">CI/CD</span>
-                </div>
-            </div>
+        </div>
+        
+        <div style="margin-top: 50px;" class="reveal">
+            <h3 style="color: var(--primary); margin-bottom: 20px;">📜 Certifications</h3>
+            <ul style="list-style: none; color: var(--text-gray);">
+                <li style="margin-bottom: 10px;">✅ Microsoft Azure Developer Associate (AZ-204)</li>
+                <li style="margin-bottom: 10px;">✅ Azure Fundamentals (AZ-900)</li>
+                <li style="margin-bottom: 10px;">✅ AWS APAC Solutions Architecture Job Simulation</li>
+                <li style="margin-bottom: 10px;">✅ Web Designer Certification</li>
+            </ul>
         </div>
     </section>
 
     <section id="projects">
-        <h2 class="section-header reveal">Featured Work</h2>
+        <h2 class="section-header reveal">Featured Projects</h2>
         <div class="grid">
+            
             <div class="card reveal">
-                <h3>Task Management Suite</h3>
-                <p>A sophisticated productivity tool with a custom graphical interface. Handles data persistence and user workflow optimization.</p>
+                <h3>Kasi Kapital</h3>
+                <p>A web platform connecting township businesses with investors for job creation.</p>
                 <div class="tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Tkinter</span>
-                    <span class="tag">Java</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Tailwind</span>
+                    <span class="tag">Firebase</span>
                 </div>
-                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" style="display:block; margin-top:15px; color:var(--primary); text-decoration:none;">View Code &rarr;</a>
-            </div>
-
-            <div class="card reveal">
-                <h3>Enterprise Data Dashboard</h3>
-                <p>Interactive Power BI dashboards designed for high-level business management. Transforms raw SQL data into actionable strategy.</p>
-                <div class="tags">
-                    <span class="tag">Power BI</span>
-                    <span class="tag">DAX</span>
-                    <span class="tag">Business Logic</span>
+                <div style="margin-top: 15px;">
+                    <a href="https://github.com/Yolanda-loo/Kasi-Kapital.github.io" target="_blank" style="color:var(--primary); margin-right: 15px;">Repo 1</a>
+                    <a href="https://github.com/Yolanda-loo/KasiKoin" target="_blank" style="color:var(--primary);">Repo 2</a>
                 </div>
             </div>
 
             <div class="card reveal">
-                <h3>Ubuntu Pay</h3>
-                <p>A secure, responsive fintech interface designed for seamless transaction processing.</p>
+                <h3>Pay Flow Ubuntu</h3>
+                <p>A secure fintech interface designed for seamless transaction processing and user experience.</p>
                 <div class="tags">
-                    <span class="tag">Fintech</span>
+                    <span class="tag">FinTech</span>
                     <span class="tag">Web Dev</span>
                     <span class="tag">UX/UI</span>
                 </div>
-                <a href="https://github.com/tebogomathaba/Ubutu_Pay.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary); text-decoration:none;">View Site &rarr;</a>
+                <a href="https://github.com/Yolanda-loo/Pay_flow_ubuntu-new-version" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
             </div>
+
+            <div class="card reveal">
+                <h3>Cognita</h3>
+                <p>Innovative tech solution focused on education and logic processing.</p>
+                <div class="tags">
+                    <span class="tag">Software Dev</span>
+                    <span class="tag">Algorithms</span>
+                </div>
+                <a href="https://github.com/Yolanda-loo/Cognita.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+            </div>
+
+            <div class="card reveal">
+                <h3>QR Contact Share</h3>
+                <p>A digital business card solution using QR technology for instant networking.</p>
+                <div class="tags">
+                    <span class="tag">Utility</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+                <a href="https://github.com/Yolanda-loo/qr-contact-share.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+            </div>
+
+            <div class="card reveal">
+                <h3>Task Manager App</h3>
+                <p>A secure task manager with user authentication and a clean UI.</p>
+                <div class="tags">
+                    <span class="tag">Flask</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Tailwind</span>
+                </div>
+                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+            </div>
+
+             <div class="card reveal">
+                <h3>Power BI Dashboards</h3>
+                <p>Developed management dashboards for scheduling and business analysis at Volkswagen.</p>
+                <div class="tags">
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Data Analysis</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 100px;" class="reveal">
+            <h3 style="margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; color: var(--text-gray);">Live Coding Activity</h3>
+            <img src="https://ghchart.rshah.org/00f2ff/Yolanda-loo" alt="Tebogo's Github Chart" style="width: 100%; max-width: 800px; filter: invert(0.9) hue-rotate(180deg); opacity: 0.8;">
         </div>
     </section>
 
     <section id="experience">
-        <h2 class="section-header reveal">The Journey</h2>
+        <h2 class="section-header reveal">Community & Leadership</h2>
         <div style="max-width: 800px;">
             <div class="timeline-item reveal">
-                <span class="year">2022 - PRESENT</span>
-                <div class="role">Software Engineering Student</div>
+                <span class="year">PRESENT</span>
+                <div class="role">Software Engineering Student & Peer Mentor</div>
                 <div class="company">WeThinkCode_</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Mastering full-stack development through peer-to-peer learning. Focusing on algorithms, system design, and collaborative coding.</p>
+                <p style="color:var(--text-gray); margin-top:10px;">Mastering full-stack development. Helping peers with coding challenges and fostering collaborative learning.</p>
             </div>
             <div class="timeline-item reveal">
-                <span class="year">2021 - 2022</span>
-                <div class="role">Assistant Manager</div>
-                <div class="company">Investable</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Bridging the gap between technical operations and business strategy. Managed team workflows and client deliverables.</p>
+                <span class="year">2020 - 2021</span>
+                <div class="role">Assistant Administrator</div>
+                <div class="company">Founder Institute South Africa</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Supporting tech entrepreneurs with strategic thinking and administrative functions.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <span class="year">VOLUNTEER</span>
+                <div class="role">Community Wellness</div>
+                <div class="company">Higher Health SA</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Volunteer for health screenings, promoting community wellness.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="terminal-section" style="padding-top: 0;">
+        <h2 class="section-header reveal">System Access</h2>
+        <div class="terminal-window reveal" style="background: #0d1117; border: 1px solid #30363d; border-radius: 6px; font-family: 'Consolas', monospace; overflow: hidden; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="background: #161b22; padding: 10px; display: flex; gap: 8px; border-bottom: 1px solid #30363d;">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
+                <div style="margin-left: auto; color: #8b949e; font-size: 0.8rem;">guest@tebogo-mathaba:~</div>
+            </div>
+            <div id="terminal-body" style="padding: 20px; color: #c9d1d9; min-height: 300px; font-size: 0.9rem;">
+                <div style="margin-bottom: 10px;">Welcome to TebogoOS v2.0.0</div>
+                <div style="margin-bottom: 20px;">Type <span style="color: var(--primary);">help</span> to see available commands.</div>
+                
+                <div id="terminal-output"></div>
+                
+                <div style="display: flex; align-items: center; margin-top: 10px;">
+                    <span style="color: var(--primary); margin-right: 10px;">➜</span>
+                    <input type="text" id="terminal-input" autocomplete="off" style="background: transparent; border: none; color: #fff; font-family: inherit; font-size: inherit; width: 100%; outline: none;">
+                </div>
             </div>
         </div>
     </section>
 
     <section style="text-align: center; padding-bottom: 50px;" id="contact">
+        <div class="quote-box reveal">
+            "From hesitation to celebration! Pushing through challenges fuels growth."
+            <br><span style="color: var(--primary); font-size: 0.8rem; margin-top: 10px; display: block;">— Tebogo Mathaba</span>
+        </div>
+
         <h2 style="font-size: 3rem; margin-bottom: 20px;" class="reveal">Ready to collaborate?</h2>
         <p style="color: var(--text-gray); margin-bottom: 40px;" class="reveal">I am currently available for Software Engineering roles.</p>
         <a href="mailto:tebogomathaba09@gmail.com" class="btn-glow reveal">Initialize Contact</a>
@@ -433,12 +541,15 @@
             <a href="https://github.com/tebogomathaba" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-github"></i></a>
             <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-linkedin"></i></a>
         </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-gray);">
+            Alternate Portfolio: <a href="https://yolanda-loo.github.io/tebogomathaba.github.io/" target="_blank" style="color: var(--primary);">View Here</a>
+        </p>
     </section>
 
     <script>
-        // --- 1. TYPEWRITER EFFECT ---
+        // --- 1. TYPEWRITER EFFECT (Updated Titles) ---
         const textElement = document.getElementById('typing-text');
-        const phrases = ['Data Solutions', 'Python Apps', 'Java Systems', 'Business Strategy'];
+        const phrases = ['Software Engineer', 'Data Analyst', 'Full-Stack Developer', 'Power BI Specialist'];
         let phraseIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -458,7 +569,7 @@
 
             if (!isDeleting && charIndex === currentPhrase.length) {
                 isDeleting = true;
-                typeSpeed = 2000; // Pause at end
+                typeSpeed = 2000; 
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 phraseIndex = (phraseIndex + 1) % phrases.length;
@@ -482,7 +593,7 @@
         });
 
         // Hover effect for links
-        document.querySelectorAll('a, .card').forEach(item => {
+        document.querySelectorAll('a, .card, .btn-glow').forEach(item => {
             item.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 cursor.style.borderColor = '#00f2ff';
@@ -508,7 +619,7 @@
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 
-        // --- 4. PARTICLE BACKGROUND (The "Fascinating" Part) ---
+        // --- 4. PARTICLE BACKGROUND ---
         const canvas = document.getElementById('canvas-container');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -516,7 +627,6 @@
 
         let particlesArray;
 
-        // Handle resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -527,15 +637,13 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1; // Random size
+                this.size = Math.random() * 2 + 1;
                 this.speedX = (Math.random() * 1.5) - 0.75;
                 this.speedY = (Math.random() * 1.5) - 0.75;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                // Bounce off edges
                 if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
                 if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
             }
@@ -549,7 +657,7 @@
 
         function init() {
             particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 15000; // Density
+            let numberOfParticles = (canvas.height * canvas.width) / 15000; 
             for (let i = 0; i < numberOfParticles; i++) {
                 particlesArray.push(new Particle());
             }
@@ -561,7 +669,6 @@
                 particlesArray[i].update();
                 particlesArray[i].draw();
                 
-                // Draw connections (Neural Network effect)
                 for (let j = i; j < particlesArray.length; j++) {
                     const dx = particlesArray[i].x - particlesArray[j].x;
                     const dy = particlesArray[i].y - particlesArray[j].y;
@@ -582,6 +689,70 @@
 
         init();
         animate();
+
+        // --- 5. TERMINAL LOGIC (Updated for Tebogo) ---
+        const termInput = document.getElementById('terminal-input');
+        const termOutput = document.getElementById('terminal-output');
+
+        const commands = {
+            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Toolbox<br> - <span style='color:var(--primary)'>contact</span>: Email me<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
+            about: "I am Tebogo Mathaba 👨🏾‍💻. Aspiring Software Engineer and Data Analyst with a passion for business management.",
+            stack: "Python, Java, JavaScript, C#, SQL, Power BI, Flask, React, Tailwind, Azure.",
+            contact: "Email: tebogomathaba09@gmail.com | Phone: +27 74054 4802",
+            clear: "CLEAR_SCREEN",
+            sudo: "Access Denied: You need to hire me first. 😉"
+        };
+
+        termInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.toLowerCase().trim();
+                let response = "";
+
+                const userLine = document.createElement('div');
+                userLine.innerHTML = `<span style="color: var(--primary);">➜</span> ${input}`;
+                userLine.style.margin = "5px 0";
+                termOutput.appendChild(userLine);
+
+                if (commands[input]) {
+                    if (commands[input] === "CLEAR_SCREEN") {
+                        termOutput.innerHTML = "";
+                    } else {
+                        response = commands[input];
+                    }
+                } else if (input !== "") {
+                    response = `Command not found: ${input}. Type 'help' for options.`;
+                }
+
+                if (response) {
+                    const respLine = document.createElement('div');
+                    respLine.innerHTML = response;
+                    respLine.style.marginBottom = "15px";
+                    respLine.style.color = "#8b949e";
+                    termOutput.appendChild(respLine);
+                }
+
+                this.value = "";
+                this.scrollIntoView();
+            }
+        });
+
+        // --- 6. 3D TILT EFFECT ---
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xRotation = -((y - rect.height/2) / 20); 
+                const yRotation = ((x - rect.width/2) / 20);   
+                
+                card.style.transform = `perspective(1000px) scale(1.02) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) scale(1) rotateX(0) rotateY(0)';
+            });
+        });
     </script>
 </body>
 </html>
