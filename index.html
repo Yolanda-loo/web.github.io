@@ -28,6 +28,19 @@
             overflow-x: hidden;
         }
 
+        /* --- 1. SCROLL PROGRESS BAR (NEW) --- */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 10000;
+            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.1s;
+        }
+
         /* --- CUSTOM CURSOR --- */
         #cursor {
             width: 20px;
@@ -119,14 +132,55 @@
             text-transform: uppercase;
         }
 
-        .hero h1 {
+        /* --- 2. GLITCH EFFECT (NEW) --- */
+        .glitch {
+            position: relative;
             font-size: 5rem;
-            line-height: 1.1;
             font-weight: 700;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            color: #fff;
+            letter-spacing: -2px;
+            z-index: 1;
             margin-bottom: 20px;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(30px, 9999px, 10px, 0); }
+            5% { clip: rect(80px, 9999px, 90px, 0); }
+            10% { clip: rect(30px, 9999px, 10px, 0); }
+            100% { clip: rect(30px, 9999px, 10px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(10px, 9999px, 80px, 0); }
+            5% { clip: rect(90px, 9999px, 20px, 0); }
+            10% { clip: rect(10px, 9999px, 80px, 0); }
+            100% { clip: rect(10px, 9999px, 80px, 0); }
         }
 
         .typewriter {
@@ -219,6 +273,14 @@
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 20px;
+            /* Floating Animation for Icons */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         .card h3 {
@@ -291,13 +353,40 @@
             font-family: 'Space Grotesk', serif;
         }
 
+        /* --- 3. FLOATING CV BUTTON (NEW) --- */
+        .floating-cv {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            z-index: 100;
+            transition: 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .floating-cv:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.8);
+            background: #fff;
+        }
+
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
+            .glitch { font-size: 3rem; } /* Adjusted for mobile */
             nav { padding: 20px; }
             .nav-links { display: none; }
             #cursor, #cursor-dot { display: none; }
             * { cursor: auto; }
+            .floating-cv { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.9rem; }
         }
 
         .reveal {
@@ -312,6 +401,8 @@
     </style>
 </head>
 <body>
+
+    <div id="scroll-progress"></div>
 
     <div id="cursor"></div>
     <div id="cursor-dot"></div>
@@ -331,7 +422,7 @@
 
     <section class="hero" id="about">
         <div class="hero-subtitle">Hello, I am</div>
-        <h1>Tebogo Mathaba</h1>
+        <h1 class="glitch" data-text="Tebogo Mathaba">Tebogo Mathaba</h1>
         <div class="typewriter"><span id="typing-text"></span><span class="cursor-blink">_</span></div>
         <p style="margin-top: 20px; max-width: 600px; color: var(--text-gray);">
             Crafting innovative tech solutions with a blend of creativity, technical expertise, and a passion for business management.
@@ -546,6 +637,10 @@
         </p>
     </section>
 
+    <a href="#" class="floating-cv">
+        <i class="fas fa-file-download"></i> Download CV
+    </a>
+
     <script>
         // --- 1. TYPEWRITER EFFECT (Updated Titles) ---
         const textElement = document.getElementById('typing-text');
@@ -581,9 +676,10 @@
         document.addEventListener('DOMContentLoaded', type);
 
 
-        // --- 2. CUSTOM CURSOR ---
+        // --- 2. CUSTOM CURSOR & SCROLL PROGRESS ---
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
+        const scrollProgress = document.getElementById('scroll-progress');
 
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
@@ -592,8 +688,16 @@
             cursorDot.style.top = e.clientY + 'px';
         });
 
+        // Scroll Progress Logic
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + "%";
+        });
+
         // Hover effect for links
-        document.querySelectorAll('a, .card, .btn-glow').forEach(item => {
+        document.querySelectorAll('a, .card, .btn-glow, .floating-cv').forEach(item => {
             item.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 cursor.style.borderColor = '#00f2ff';
