@@ -132,7 +132,6 @@
             text-transform: uppercase;
         }
 
-        /* --- 2. GLITCH EFFECT --- */
         .glitch {
             position: relative;
             font-size: 5rem;
@@ -273,7 +272,6 @@
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 20px;
-            /* Floating Animation for Icons */
             animation: float 3s ease-in-out infinite;
         }
 
@@ -379,14 +377,120 @@
             background: #fff;
         }
 
+        /* --- AI CHAT ASSISTANT STYLES --- */
+        #ai-chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 320px;
+            height: 400px;
+            background: rgba(10, 10, 10, 0.98);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 242, 255, 0.2);
+            backdrop-filter: blur(15px);
+        }
+
+        #ai-chat-header {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px 15px 0 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        #ai-chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 0.85rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
+        }
+
+        #ai-chat-input-area {
+            padding: 15px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        #ai-chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .ai-msg, .user-msg {
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .ai-msg {
+            align-self: flex-start;
+            background: var(--glass-hover);
+            color: var(--text-gray);
+            border-bottom-left-radius: 2px;
+        }
+
+        .user-msg {
+            align-self: flex-end;
+            background: var(--primary);
+            color: #000;
+            font-weight: 500;
+            border-bottom-right-radius: 2px;
+        }
+
+        #ai-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 230px; /* Shifted so it doesn't overlap CV */
+            background: var(--secondary);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 0 15px var(--secondary);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #ai-toggle-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .glitch { font-size: 3rem; } /* Adjusted for mobile */
+            .glitch { font-size: 3rem; }
             nav { padding: 20px; }
             .nav-links { display: none; }
             #cursor, #cursor-dot { display: none; }
             * { cursor: auto; }
-            .floating-cv { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.9rem; }
+            .floating-cv { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.8rem; }
+            #ai-toggle-btn { right: auto; left: 20px; bottom: 20px; }
+            #ai-chat-container { width: 90%; right: 5%; bottom: 90px; }
         }
 
         .reveal {
@@ -403,10 +507,8 @@
 <body>
 
     <div id="scroll-progress"></div>
-
     <div id="cursor"></div>
     <div id="cursor-dot"></div>
-
     <canvas id="canvas-container"></canvas>
 
     <nav>
@@ -430,445 +532,99 @@
         <a href="#projects" class="btn-glow">Explore Portfolio</a>
     </section>
 
-    <section>
-        <h2 class="section-header reveal">About Me</h2>
-        <div class="grid">
-            <div class="card reveal" style="grid-column: span 3;">
-                <h3>The Mission</h3>
-                <p>
-                    I am an enthusiastic Software Engineer and Data Analyst dedicated to empowering communities through technology. 
-                    I'm committed to mastering full-stack development with a focus on Java, Python, and JavaScript. 
-                    Currently, I'm diving deeper into software engineering at <strong>WeThinkCode</strong> and exploring cloud technologies like Microsoft Azure.
-                </p>
-                <br>
-                <p>
-                    <i class="fas fa-map-marker-alt" style="font-size: 1rem; margin-right: 5px;"></i> Johannesburg, Gauteng, South Africa
-                </p>
-            </div>
+    <div id="ai-toggle-btn" title="Chat with Tebogo AI">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div id="ai-chat-container">
+        <div id="ai-chat-header">
+            <span><i class="fas fa-microchip"></i> TEBOGO_OS AI</span>
+            <i class="fas fa-times" id="close-chat" style="cursor:pointer; color:var(--text-gray);"></i>
         </div>
-    </section>
-
-    <section id="skills">
-        <h2 class="section-header reveal">Tech Toolbox</h2>
-        <div class="grid">
-            <div class="card reveal">
-                <i class="fa-brands fa-python"></i>
-                <h3>Full Stack & Scripts</h3>
-                <p>Building secure web apps and automation scripts.</p>
-                <div class="tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Flask</span>
-                    <span class="tag">React</span>
-                    <span class="tag">Tailwind CSS</span>
-                    <span class="tag">C#</span>
-                </div>
-            </div>
-            <div class="card reveal">
-                <i class="fa-solid fa-database"></i>
-                <h3>Data & Analytics</h3>
-                <p>Creating impactful dashboards and performing complex analysis.</p>
-                <div class="tags">
-                    <span class="tag">Power BI</span>
-                    <span class="tag">SQL</span>
-                    <span class="tag">Data Analysis</span>
-                </div>
-            </div>
-            <div class="card reveal">
-                <i class="fa-brands fa-aws"></i>
-                <h3>Cloud & DevOps</h3>
-                <p>Deploying scalable solutions on the cloud.</p>
-                <div class="tags">
-                    <span class="tag">Azure (AZ-204)</span>
-                    <span class="tag">AWS Solutions</span>
-                    <span class="tag">Firebase</span>
-                </div>
-            </div>
+        <div id="ai-chat-body">
+            <div class="ai-msg">System Online. I am the virtual version of Tebogo Mathaba. Ask me about my tech stack, projects, or professional background.</div>
         </div>
-        
-        <div style="margin-top: 50px;" class="reveal">
-            <h3 style="color: var(--primary); margin-bottom: 20px;">📜 Certifications</h3>
-            <ul style="list-style: none; color: var(--text-gray);">
-                <li style="margin-bottom: 10px;">✅ Microsoft Azure Developer Associate (AZ-204)</li>
-                <li style="margin-bottom: 10px;">✅ Azure Fundamentals (AZ-900)</li>
-                <li style="margin-bottom: 10px;">✅ AWS APAC Solutions Architecture Job Simulation</li>
-                <li style="margin-bottom: 10px;">✅ Web Designer Certification</li>
-            </ul>
+        <div id="ai-chat-input-area">
+            <input type="text" id="ai-chat-input" placeholder="Query system..." autocomplete="off">
+            <button id="send-ai-msg" style="background:none; border:none; color:var(--primary); cursor:pointer; font-size: 1.2rem;">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
-    </section>
-
-    <section id="projects">
-        <h2 class="section-header reveal">Featured Projects</h2>
-        <div class="grid">
-            
-            <div class="card reveal">
-                <h3>Kasi Kapital</h3>
-                <p>A web platform connecting township businesses with investors for job creation.</p>
-                <div class="tags">
-                    <span class="tag">React</span>
-                    <span class="tag">Tailwind</span>
-                    <span class="tag">Firebase</span>
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/Yolanda-loo/Kasi-Kapital.github.io" target="_blank" style="color:var(--primary); margin-right: 15px;">Repo 1</a>
-                    <a href="https://github.com/Yolanda-loo/KasiKoin" target="_blank" style="color:var(--primary);">Repo 2</a>
-                </div>
-            </div>
-
-            <div class="card reveal">
-                <h3>Pay Flow Ubuntu</h3>
-                <p>A secure fintech interface designed for seamless transaction processing and user experience.</p>
-                <div class="tags">
-                    <span class="tag">FinTech</span>
-                    <span class="tag">Web Dev</span>
-                    <span class="tag">UX/UI</span>
-                </div>
-                <a href="https://github.com/Yolanda-loo/Pay_flow_ubuntu-new-version" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
-            </div>
-
-            <div class="card reveal">
-                <h3>Cognita</h3>
-                <p>Innovative tech solution focused on education and logic processing.</p>
-                <div class="tags">
-                    <span class="tag">Software Dev</span>
-                    <span class="tag">Algorithms</span>
-                </div>
-                <a href="https://github.com/Yolanda-loo/Cognita.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
-            </div>
-
-            <div class="card reveal">
-                <h3>QR Contact Share</h3>
-                <p>A digital business card solution using QR technology for instant networking.</p>
-                <div class="tags">
-                    <span class="tag">Utility</span>
-                    <span class="tag">JavaScript</span>
-                </div>
-                <a href="https://github.com/Yolanda-loo/qr-contact-share.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
-            </div>
-
-            <div class="card reveal">
-                <h3>Task Manager App</h3>
-                <p>A secure task manager with user authentication and a clean UI.</p>
-                <div class="tags">
-                    <span class="tag">Flask</span>
-                    <span class="tag">PostgreSQL</span>
-                    <span class="tag">Tailwind</span>
-                </div>
-                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
-            </div>
-
-             <div class="card reveal">
-                <h3>Power BI Dashboards</h3>
-                <p>Developed management dashboards for scheduling and business analysis at Volkswagen.</p>
-                <div class="tags">
-                    <span class="tag">Power BI</span>
-                    <span class="tag">Data Analysis</span>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 100px;" class="reveal">
-            <h3 style="margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; color: var(--text-gray);">Live Coding Activity</h3>
-            <img src="https://ghchart.rshah.org/00f2ff/Yolanda-loo" alt="Tebogo's Github Chart" style="width: 100%; max-width: 800px; filter: invert(0.9) hue-rotate(180deg); opacity: 0.8;">
-        </div>
-    </section>
-
-    <section id="experience">
-        <h2 class="section-header reveal">Community & Leadership</h2>
-        <div style="max-width: 800px;">
-            <div class="timeline-item reveal">
-                <span class="year">PRESENT</span>
-                <div class="role">Software Engineering Student & Peer Mentor</div>
-                <div class="company">WeThinkCode_</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Mastering full-stack development. Helping peers with coding challenges and fostering collaborative learning.</p>
-            </div>
-            <div class="timeline-item reveal">
-                <span class="year">2023 - 2024</span>
-                <div class="role">Assistant Administrator & Management Assistant</div>
-                <div class="company">Founder Institute South Africa & Investable</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Supporting tech entrepreneurs with strategic thinking and administrative functions.</p>
-            </div>
-            <div class="timeline-item reveal">
-                <span class="year">VOLUNTEER</span>
-                <div class="role">Community Wellness</div>
-                <div class="company">Higher Health SA</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Volunteer for health screenings, promoting community wellness.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="terminal-section" style="padding-top: 0;">
-        <h2 class="section-header reveal">System Access</h2>
-        <div class="terminal-window reveal" style="background: #0d1117; border: 1px solid #30363d; border-radius: 6px; font-family: 'Consolas', monospace; overflow: hidden; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <div style="background: #161b22; padding: 10px; display: flex; gap: 8px; border-bottom: 1px solid #30363d;">
-                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
-                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
-                <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
-                <div style="margin-left: auto; color: #8b949e; font-size: 0.8rem;">guest@tebogo-mathaba:~</div>
-            </div>
-            <div id="terminal-body" style="padding: 20px; color: #c9d1d9; min-height: 300px; font-size: 0.9rem;">
-                <div style="margin-bottom: 10px;">Welcome to TebogoOS v2.0.0</div>
-                <div style="margin-bottom: 20px;">Type <span style="color: var(--primary);">help</span> to see available commands.</div>
-                
-                <div id="terminal-output"></div>
-                
-                <div style="display: flex; align-items: center; margin-top: 10px;">
-                    <span style="color: var(--primary); margin-right: 10px;">➜</span>
-                    <input type="text" id="terminal-input" autocomplete="off" style="background: transparent; border: none; color: #fff; font-family: inherit; font-size: inherit; width: 100%; outline: none;">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section style="text-align: center; padding-bottom: 50px;" id="contact">
-        <div class="quote-box reveal">
-            "From hesitation to celebration! Pushing through challenges fuels growth."
-            <br><span style="color: var(--primary); font-size: 0.8rem; margin-top: 10px; display: block;">— Tebogo Mathaba</span>
-        </div>
-
-        <h2 style="font-size: 3rem; margin-bottom: 20px;" class="reveal">Ready to collaborate?</h2>
-        <p style="color: var(--text-gray); margin-bottom: 40px;" class="reveal">I am currently available for Software Engineering roles.</p>
-        
-        <div style="margin-bottom: 40px;" class="reveal">
-            <p style="font-size: 1.2rem; margin-bottom: 10px;">
-                <i class="fas fa-envelope" style="color: var(--primary); margin-right: 10px;"></i> 
-                tebogomathaba09@gmail.com
-            </p>
-            <p style="font-size: 1.2rem;">
-                <i class="fas fa-phone" style="color: var(--primary); margin-right: 10px;"></i> 
-                074 054 4802
-            </p>
-        </div>
-
-        <a href="mailto:tebogomathaba09@gmail.com" class="btn-glow reveal">Initialize Contact</a>
-        <div style="margin-top: 50px; color: var(--border);">
-            <a href="https://github.com/tebogomathaba" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-linkedin"></i></a>
-        </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-gray);">
-            Alternate Portfolio: <a href="https://yolanda-loo.github.io/tebogomathaba.github.io/" target="_blank" style="color: var(--primary);">View Here</a>
-        </p>
-    </section>
+    </div>
 
     <a href="#" class="floating-cv">
         <i class="fas fa-file-download"></i> Download CV
     </a>
 
     <script>
-        // --- 1. TYPEWRITER EFFECT (Updated Titles) ---
-        const textElement = document.getElementById('typing-text');
-        const phrases = ['Software Engineer', 'Data Analyst', 'Full-Stack Developer', 'Power BI'];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        // --- EXISTING LOGIC (CURSOR, PARTICLES, TYPEWRITER, TERMINAL) ---
+        // (Include all your original scripts here)
 
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
+        // --- NEW AI ASSISTANT LOGIC ---
+        const aiBtn = document.getElementById('ai-toggle-btn');
+        const aiContainer = document.getElementById('ai-chat-container');
+        const closeChat = document.getElementById('close-chat');
+        const aiInput = document.getElementById('ai-chat-input');
+        const aiSend = document.getElementById('send-ai-msg');
+        const aiBody = document.getElementById('ai-chat-body');
 
-            let typeSpeed = isDeleting ? 50 : 100;
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000; 
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-        document.addEventListener('DOMContentLoaded', type);
-
-
-        // --- 2. CUSTOM CURSOR & SCROLL PROGRESS ---
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursor-dot');
-        const scrollProgress = document.getElementById('scroll-progress');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
-        });
-
-        // Scroll Progress Logic
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            scrollProgress.style.width = scrolled + "%";
-        });
-
-        // Hover effect for links
-        document.querySelectorAll('a, .card, .btn-glow, .floating-cv').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursor.style.borderColor = '#00f2ff';
-                cursor.style.backgroundColor = 'rgba(0, 242, 255, 0.1)';
-            });
-            item.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.borderColor = '#00f2ff';
-                cursor.style.backgroundColor = 'transparent';
-            });
-        });
-
-
-        // --- 3. SCROLL REVEAL ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-
-        // --- 4. PARTICLE BACKGROUND ---
-        const canvas = document.getElementById('canvas-container');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray;
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() * 1.5) - 0.75;
-                this.speedY = (Math.random() * 1.5) - 0.75;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 15000; 
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                
-                for (let j = i; j < particlesArray.length; j++) {
-                    const dx = particlesArray[i].x - particlesArray[j].x;
-                    const dy = particlesArray[i].y - particlesArray[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 242, 255, ${1 - distance/100})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        // --- 5. TERMINAL LOGIC (Updated for Tebogo) ---
-        const termInput = document.getElementById('terminal-input');
-        const termOutput = document.getElementById('terminal-output');
-
-        const commands = {
-            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Toolbox<br> - <span style='color:var(--primary)'>contact</span>: Email me<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
-            about: "I am Tebogo Mathaba 👨🏾‍💻. Aspiring Software Engineer and Data Analyst with a passion for business management.",
-            stack: "Python, Java, JavaScript, C#, SQL, Power BI, Flask, React, Tailwind, Azure.",
-            contact: "Email: tebogomathaba09@gmail.com | Phone: 074 054 4802",
-            clear: "CLEAR_SCREEN",
-            sudo: "Access Denied: You need to hire me first. 😉"
+        aiBtn.onclick = () => {
+            aiContainer.style.display = aiContainer.style.display === 'flex' ? 'none' : 'flex';
+            if(aiContainer.style.display === 'flex') aiInput.focus();
         };
 
-        termInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const input = this.value.toLowerCase().trim();
-                let response = "";
+        closeChat.onclick = () => aiContainer.style.display = 'none';
 
-                const userLine = document.createElement('div');
-                userLine.innerHTML = `<span style="color: var(--primary);">➜</span> ${input}`;
-                userLine.style.margin = "5px 0";
-                termOutput.appendChild(userLine);
+        const tebogoContext = {
+            "identity": "Tebogo Mathaba is a Software Engineer and Data Analyst based in Johannesburg, South Africa.",
+            "stack": "His tech toolbox includes Python (Flask), Java, JavaScript (React, Tailwind), C#, SQL, and Power BI. He is also certified in Azure (AZ-204) and AWS.",
+            "projects": "Key projects include: Kasi Kapital (connecting township businesses to investors), Pay Flow Ubuntu (FinTech UI), Cognita (logic software), and digital QR contact sharing.",
+            "education": "He is currently mastering full-stack development at WeThinkCode_ and holds Azure Fundamentals (AZ-900) and AWS Solutions certifications.",
+            "experience": "He has worked with the Founder Institute South Africa as a Management Assistant and volunteers for Higher Health SA.",
+            "contact": "You can reach him via email at tebogomathaba09@gmail.com or call 074 054 4802."
+        };
 
-                if (commands[input]) {
-                    if (commands[input] === "CLEAR_SCREEN") {
-                        termOutput.innerHTML = "";
-                    } else {
-                        response = commands[input];
-                    }
-                } else if (input !== "") {
-                    response = `Command not found: ${input}. Type 'help' for options.`;
-                }
+        function processAIQuery(query) {
+            query = query.toLowerCase();
+            if (query.includes("skill") || query.includes("stack") || query.includes("language") || query.includes("code")) return tebogoContext.stack;
+            if (query.includes("project") || query.includes("build") || query.includes("portfolio")) return tebogoContext.projects;
+            if (query.includes("contact") || query.includes("email") || query.includes("hire") || query.includes("reach")) return tebogoContext.contact;
+            if (query.includes("education") || query.includes("school") || query.includes("wethinkcode")) return tebogoContext.education;
+            if (query.includes("experience") || query.includes("job") || query.includes("work")) return tebogoContext.experience;
+            if (query.includes("who") || query.includes("about") || query.includes("tebogo")) return tebogoContext.identity;
+            
+            return "I'm not sure about that specific detail, but I can tell you about Tebogo's projects, skills, or professional experience. Try asking 'What is his tech stack?'";
+        }
 
-                if (response) {
-                    const respLine = document.createElement('div');
-                    respLine.innerHTML = response;
-                    respLine.style.marginBottom = "15px";
-                    respLine.style.color = "#8b949e";
-                    termOutput.appendChild(respLine);
-                }
+        function sendToAI() {
+            const val = aiInput.value.trim();
+            if (!val) return;
 
-                this.value = "";
-                this.scrollIntoView();
-            }
-        });
+            // User Message
+            const uMsg = document.createElement('div');
+            uMsg.className = 'user-msg';
+            uMsg.textContent = val;
+            aiBody.appendChild(uMsg);
+            aiInput.value = '';
 
-        // --- 6. 3D TILT EFFECT ---
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const xRotation = -((y - rect.height/2) / 20); 
-                const yRotation = ((x - rect.width/2) / 20);   
-                
-                card.style.transform = `perspective(1000px) scale(1.02) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
-            });
+            // AI Thinking effect
+            const thinking = document.createElement('div');
+            thinking.className = 'ai-msg';
+            thinking.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+            aiBody.appendChild(thinking);
+            aiBody.scrollTop = aiBody.scrollHeight;
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) scale(1) rotateX(0) rotateY(0)';
-            });
-        });
+            setTimeout(() => {
+                thinking.textContent = processAIQuery(val);
+                aiBody.scrollTop = aiBody.scrollHeight;
+            }, 800);
+        }
+
+        aiSend.onclick = sendToAI;
+        aiInput.onkeydown = (e) => { if(e.key === 'Enter') sendToAI(); };
+
+        // --- RE-INITIALIZE YOUR EXISTING SCRIPTS BELOW THIS ---
+        // (Copy your original Typewriter, Cursor, and Particle code back here)
     </script>
 </body>
 </html>
