@@ -219,13 +219,13 @@
             box-shadow: 0 0 30px var(--primary);
         }
 
-        /* --- UPDATED AI STYLES (THE "BETTER" VERSION) --- */
+        /* --- UPDATED AI ASSISTANT STYLES --- */
         #ai-chat-container {
             position: fixed;
             bottom: 100px;
             right: 30px;
             width: 320px;
-            height: 420px;
+            height: 450px;
             background: rgba(10, 10, 10, 0.98);
             border: 1px solid var(--primary);
             border-radius: 15px;
@@ -245,6 +245,7 @@
             justify-content: space-between;
             align-items: center;
             font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
             color: var(--primary);
         }
 
@@ -275,6 +276,7 @@
             padding: 10px;
             color: white;
             outline: none;
+            font-family: inherit;
         }
 
         .ai-msg, .user-msg {
@@ -299,7 +301,7 @@
             border-bottom-right-radius: 2px;
         }
 
-        .ai-chips {
+        .suggestion-chips {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
@@ -307,11 +309,12 @@
         }
 
         .chip {
-            font-size: 0.7rem;
-            padding: 4px 10px;
+            background: rgba(0, 242, 255, 0.1);
             border: 1px solid var(--primary);
             color: var(--primary);
+            padding: 4px 10px;
             border-radius: 20px;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: 0.3s;
         }
@@ -336,10 +339,34 @@
             cursor: pointer;
             z-index: 10000;
             box-shadow: 0 0 15px var(--secondary);
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        #ai-toggle-btn:hover { transform: scale(1.1); }
+        #ai-toggle-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .glitch { font-size: 3rem; }
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            #cursor, #cursor-dot { display: none; }
+            * { cursor: auto; }
+            .floating-cv { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.8rem; }
+            #ai-toggle-btn { right: auto; left: 20px; bottom: 20px; }
+            #ai-chat-container { width: 90%; right: 5%; bottom: 90px; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -355,12 +382,13 @@
             <a href="#about">About</a>
             <a href="#skills">Stack</a>
             <a href="#projects">Work</a>
+            <a href="#terminal-section">Terminal</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <section class="hero" id="about">
-        <div class="hero-subtitle">System Online // Initializing...</div>
+        <div class="hero-subtitle">System Online // Hello, I am</div>
         <h1 class="glitch" data-text="Tebogo Mathaba">Tebogo Mathaba</h1>
         <div class="typewriter"><span id="typing-text"></span><span class="cursor-blink">_</span></div>
         <p style="margin-top: 20px; max-width: 600px; color: var(--text-gray);">
@@ -375,113 +403,144 @@
 
     <div id="ai-chat-container">
         <div id="ai-chat-header">
-            <span><i class="fas fa-microchip"></i> TEBOGO_OS_v3.0</span>
-            <i class="fas fa-times" id="close-chat" style="cursor:pointer"></i>
+            <span><i class="fas fa-microchip"></i> TEBOGO_OS AI v2.0</span>
+            <i class="fas fa-times" id="close-chat" style="cursor:pointer; color:var(--text-gray);"></i>
         </div>
         <div id="ai-chat-body">
-            <div class="ai-msg">Neural link established. I am Tebogo's Virtual Architect. What would you like to know about his craft?</div>
-            <div class="ai-chips">
+            <div class="ai-msg">Neural link established. I am Tebogo's Virtual Assistant. How can I assist your query?</div>
+            <div class="suggestion-chips">
                 <div class="chip" onclick="quickQuery('What is your tech stack?')">🚀 Tech Stack</div>
                 <div class="chip" onclick="quickQuery('Show me your projects')">💻 Projects</div>
-                <div class="chip" onclick="quickQuery('Contact info?')">📧 Contact</div>
+                <div class="chip" onclick="quickQuery('How can I contact you?')">📧 Contact</div>
             </div>
         </div>
         <div id="ai-chat-input-area">
-            <input type="text" id="ai-chat-input" placeholder="Enter query..." autocomplete="off">
-            <button id="send-ai-msg" style="background:none; border:none; color:var(--primary); cursor:pointer;">
+            <input type="text" id="ai-chat-input" placeholder="Query system..." autocomplete="off">
+            <button id="send-ai-msg" style="background:none; border:none; color:var(--primary); cursor:pointer; font-size: 1.2rem;">
                 <i class="fas fa-paper-plane"></i>
             </button>
         </div>
     </div>
+
     <a href="#" class="floating-cv">
         <i class="fas fa-file-download"></i> Download CV
     </a>
 
     <script>
-        /* --- KEEPING YOUR ORIGINAL LOGIC UNTOUCHED --- */
-        // (Insert your particles, cursor, and typewriter code here)
+        // --- 1. TYPEWRITER ---
+        const textElement = document.getElementById('typing-text');
+        const phrases = ['Software Engineer', 'Data Analyst', 'Full-Stack Developer', 'Power BI Specialist'];
+        let phraseIndex = 0, charIndex = 0, isDeleting = false;
 
-        // --- BETTER AI LOGIC ENGINE ---
-        const aiData = {
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            textElement.textContent = isDeleting ? currentPhrase.substring(0, charIndex - 1) : currentPhrase.substring(0, charIndex + 1);
+            charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentPhrase.length) { isDeleting = true; typeSpeed = 2000; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 500; }
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // --- 2. PARTICLES ---
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        function initParticles() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            particlesArray = [];
+            for (let i = 0; i < 100; i++) {
+                particlesArray.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1, speedX: Math.random() * 1 - 0.5, speedY: Math.random() * 1 - 0.5
+                });
+            }
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => {
+                p.x += p.speedX; p.y += p.speedY;
+                if (p.x > canvas.width || p.x < 0) p.speedX *= -1;
+                if (p.y > canvas.height || p.y < 0) p.speedY *= -1;
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        window.addEventListener('resize', initParticles);
+        initParticles(); animateParticles();
+
+        // --- 3. CURSOR ---
+        const cursor = document.getElementById('cursor'), dot = document.getElementById('cursor-dot');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = dot.style.left = e.clientX + 'px';
+            cursor.style.top = dot.style.top = e.clientY + 'px';
+        });
+
+        // --- 4. IMPROVED AI ENGINE ---
+        const brain = {
             identity: [
-                "I am the virtual version of Tebogo Mathaba—Software Engineer, Data Analyst, and Tech Mentor.",
-                "Tebogo is a Future Architect dedicated to empowering communities through clean code and data storytelling."
+                "Tebogo Mathaba is a Software Engineer and Data Analyst based in Johannesburg. He is passionate about using tech to empower communities.",
+                "I am the virtual architect of this site. Tebogo is a full-stack developer currently studying at WeThinkCode_."
             ],
             stack: [
-                "The core engine: Python (Flask), Java, and JavaScript (React). Certified in Azure (AZ-204) and AWS Architecture.",
-                "He specializes in full-stack development, SQL database management, and building high-impact Power BI dashboards."
+                "The engine runs on Python (Flask), Java, and JavaScript (React). Certified in Azure (AZ-204) and AWS Architecture.",
+                "Tebogo uses SQL for data, Power BI for insights, and Tailwind/React for UI. He's also deep into Cloud DevOps."
             ],
             projects: [
-                "Major builds include Kasi Kapital (fintech), Pay Flow Ubuntu, and Cognita. He's also built digital QR networking tools.",
-                "He's currently working on Kasi Magazine and several cloud-native apps. Check the 'Work' section for live repos!"
+                "His key works include Kasi Kapital (fintech), Pay Flow Ubuntu, and Cognita. He also built a digital QR networking tool.",
+                "You can see his 'Kasi Magazine' project and several GitHub repos under the 'Work' section of this portfolio."
             ],
             contact: [
                 "Signal established: tebogomathaba09@gmail.com | 074 054 4802. System is ready for collaboration.",
-                "You can find him on LinkedIn or GitHub as 'tebogomathaba'. He is currently open to Software Engineering roles."
+                "Reach out via LinkedIn or email him directly. He is currently looking for Software Engineering opportunities!"
             ]
         };
 
-        const aiBtn = document.getElementById('ai-toggle-btn');
-        const aiChat = document.getElementById('ai-chat-container');
-        const aiBody = document.getElementById('ai-chat-body');
-        const aiInput = document.getElementById('ai-chat-input');
+        const aiBtn = document.getElementById('ai-toggle-btn'), aiChat = document.getElementById('ai-chat-container');
+        const aiInput = document.getElementById('ai-chat-input'), aiBody = document.getElementById('ai-chat-body');
 
         aiBtn.onclick = () => {
             aiChat.style.display = aiChat.style.display === 'flex' ? 'none' : 'flex';
             if(aiChat.style.display === 'flex') aiInput.focus();
         };
-
         document.getElementById('close-chat').onclick = () => aiChat.style.display = 'none';
 
-        function quickQuery(txt) {
-            aiInput.value = txt;
-            handleAISend();
-        }
+        function quickQuery(text) { aiInput.value = text; sendToAI(); }
 
-        function typeResponse(target, text) {
-            let i = 0;
-            target.textContent = "";
+        function typeMsg(element, text) {
+            let i = 0; element.textContent = "";
             const interval = setInterval(() => {
-                target.textContent += text.charAt(i);
-                i++;
-                if (i >= text.length) {
-                    clearInterval(interval);
-                    aiBody.scrollTop = aiBody.scrollHeight;
-                }
+                element.textContent += text.charAt(i); i++;
+                if (i >= text.length) { clearInterval(interval); aiBody.scrollTop = aiBody.scrollHeight; }
             }, 20);
         }
 
-        function handleAISend() {
-            const query = aiInput.value.trim().toLowerCase();
-            if(!query) return;
+        function sendToAI() {
+            const val = aiInput.value.trim().toLowerCase();
+            if (!val) return;
+            const uMsg = document.createElement('div'); uMsg.className = 'user-msg'; uMsg.textContent = aiInput.value;
+            aiBody.appendChild(uMsg); aiInput.value = "";
 
-            const uMsg = document.createElement('div');
-            uMsg.className = 'user-msg';
-            uMsg.textContent = aiInput.value;
-            aiBody.appendChild(uMsg);
-            aiInput.value = '';
-
-            const thinking = document.createElement('div');
-            thinking.className = 'ai-msg';
-            thinking.innerHTML = '<i>Processing query...</i>';
+            const thinking = document.createElement('div'); thinking.className = 'ai-msg'; thinking.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
             aiBody.appendChild(thinking);
             aiBody.scrollTop = aiBody.scrollHeight;
 
             setTimeout(() => {
                 let response;
-                if(query.match(/skill|stack|code|language/)) response = aiData.stack;
-                else if(query.match(/project|work|build/)) response = aiData.projects;
-                else if(query.match(/contact|reach|email|hire/)) response = aiData.contact;
-                else if(query.match(/who|about|tebogo/)) response = aiData.identity;
-                else response = ["Query logged. While I don't have a specific record for that, I can tell you about his projects or skills!"];
-
+                if (val.match(/skill|stack|code|language/)) response = brain.stack;
+                else if (val.match(/project|work|build|portfolio/)) response = brain.projects;
+                else if (val.match(/contact|email|phone|reach|hire/)) response = brain.contact;
+                else if (val.match(/who|about|identity/)) response = brain.identity;
+                else response = ["I'm still learning about that! Try asking about Tebogo's projects, skills, or contact info."];
+                
                 const finalMsg = response[Math.floor(Math.random() * response.length)];
-                typeResponse(thinking, finalMsg);
+                typeMsg(thinking, finalMsg);
             }, 800);
         }
-
-        document.getElementById('send-ai-msg').onclick = handleAISend;
-        aiInput.onkeydown = (e) => { if(e.key === 'Enter') handleAISend(); };
+        document.getElementById('send-ai-msg').onclick = sendToAI;
+        aiInput.onkeydown = e => { if(e.key === 'Enter') sendToAI(); };
     </script>
 </body>
 </html>
