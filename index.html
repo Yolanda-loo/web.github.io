@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tebogo Mathaba | Future Architect</title>
+    <title>Tebogo Mathaba | Software Engineer & Full-Stack Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,6 +15,7 @@
             --border: rgba(255, 255, 255, 0.1);
             --primary: #00f2ff; /* Cyber Cyan */
             --secondary: #7000ff; /* Electric Purple */
+            --accent: #ff006e; /* Hot Pink */
             --text: #ffffff;
             --text-gray: #a1a1aa;
         }
@@ -212,12 +213,37 @@
             transition: 0.3s;
             text-decoration: none;
             display: inline-block;
+            margin-right: 20px;
         }
 
         .btn-glow:hover {
             background: var(--primary);
             color: #000;
             box-shadow: 0 0 30px var(--primary);
+        }
+
+        .btn-primary {
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.8);
         }
 
         /* --- SECTIONS --- */
@@ -310,6 +336,45 @@
             font-family: monospace;
         }
 
+        /* --- OPEN TO WORK BADGE --- */
+        .open-to-work {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        }
+
+        .open-to-work h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .open-to-work p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .open-to-work .role-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .open-to-work .role-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
         /* --- TIMELINE --- */
         .timeline-item {
             border-left: 2px solid var(--border);
@@ -386,6 +451,7 @@
             #cursor, #cursor-dot { display: none; }
             * { cursor: auto; }
             .floating-cv { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.9rem; }
+            .btn-glow, .btn-primary { margin-top: 15px; display: block; width: 100%; text-align: center; }
         }
 
         .reveal {
@@ -423,25 +489,48 @@
         <div class="hero-subtitle">Hello, I am</div>
         <h1 class="glitch" data-text="Tebogo Mathaba">Tebogo Mathaba</h1>
         <div class="typewriter"><span id="typing-text"></span><span class="cursor-blink">_</span></div>
-        <p style="margin-top: 20px; max-width: 600px; color: var(--text-gray);">
-            Crafting innovative tech solutions with a blend of creativity, technical expertise, and a passion for business management.
+        <p style="margin-top: 20px; max-width: 600px; color: var(--text-gray); font-size: 1.1rem;">
+            Software Engineer | Full-Stack Developer | Azure AI Fundamentals (AI-900)
         </p>
-        <a href="#projects" class="btn-glow">Explore Portfolio</a>
+        <p style="margin-top: 15px; max-width: 600px; color: var(--text-gray);">
+            I build practical, user-focused digital solutions that combine technology, problem-solving, and business impact.
+        </p>
+        <div style="margin-top: 30px;">
+            <a href="#contact" class="btn-primary">
+                <i class="fas fa-envelope"></i> Let's Work Together
+            </a>
+            <a href="https://docs.google.com/document/d/1qS8f-kiCzreV8_a3-S3S4qAl9mxh7-UEKqMgDRaxLVM/export?format=pdf" target="_blank" class="btn-glow">
+                <i class="fas fa-file-pdf"></i> Download CV
+            </a>
+        </div>
     </section>
 
     <section>
+        <div class="open-to-work reveal">
+            <h4>🚀 Open to Opportunities</h4>
+            <p>Actively seeking software engineering roles, internships, and junior developer positions.</p>
+            <div class="role-list">
+                <div class="role-tag">Full-Stack Development</div>
+                <div class="role-tag">Software Engineering</div>
+                <div class="role-tag">Data Analysis</div>
+                <div class="role-tag">Cloud Solutions</div>
+            </div>
+        </div>
+
         <h2 class="section-header reveal">About Me</h2>
         <div class="grid">
             <div class="card reveal" style="grid-column: span 3;">
-                <h3>The Mission</h3>
+                <h3>My Mission</h3>
                 <p>
-                    I am an enthusiastic Software Engineer and Data Analyst dedicated to empowering communities through technology. 
-                    I'm committed to mastering full-stack development with a focus on Java, Python, and JavaScript. 
-                    Currently, I'm diving deeper into software engineering at <strong>WeThinkCode</strong> and exploring cloud technologies like Microsoft Azure.
+                    I'm a passionate Software Engineer and Data Analyst dedicated to creating practical digital solutions that solve real-world problems. With a foundation in full-stack development (Python, JavaScript, Java) and cloud technologies (Microsoft Azure), I combine technical expertise with a strong focus on user experience and business value.
                 </p>
                 <br>
                 <p>
-                    <i class="fas fa-map-marker-alt" style="font-size: 1rem; margin-right: 5px;"></i> Johannesburg, Gauteng, South Africa
+                    Currently diving deeper into software engineering at <strong>WeThinkCode_</strong>, I'm also exploring AI and data-driven applications. I'm particularly interested in building scalable applications, working with cloud infrastructure, and leveraging AI to create intelligent solutions.
+                </p>
+                <br>
+                <p>
+                    <i class="fas fa-map-marker-alt" style="font-size: 1rem; margin-right: 5px; color: var(--primary);"></i> Johannesburg, Gauteng, South Africa
                 </p>
             </div>
         </div>
@@ -453,45 +542,52 @@
             <div class="card reveal">
                 <i class="fa-brands fa-python"></i>
                 <h3>Full Stack & Scripts</h3>
-                <p>Building secure web apps and automation scripts.</p>
+                <p>Building secure, scalable web applications and automation solutions from frontend to backend.</p>
                 <div class="tags">
                     <span class="tag">Python</span>
-                    <span class="tag">Flask</span>
+                    <span class="tag">JavaScript</span>
                     <span class="tag">React</span>
-                    <span class="tag">Tailwind CSS</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">Java</span>
                     <span class="tag">C#</span>
+                    <span class="tag">Tailwind CSS</span>
                 </div>
             </div>
             <div class="card reveal">
                 <i class="fa-solid fa-database"></i>
                 <h3>Data & Analytics</h3>
-                <p>Creating impactful dashboards and performing complex analysis.</p>
+                <p>Transforming data into actionable insights through dashboards, analysis, and visualization.</p>
                 <div class="tags">
                     <span class="tag">Power BI</span>
                     <span class="tag">SQL</span>
                     <span class="tag">Data Analysis</span>
+                    <span class="tag">PostgreSQL</span>
                 </div>
             </div>
             <div class="card reveal">
                 <i class="fa-brands fa-aws"></i>
-                <h3>Cloud & DevOps</h3>
-                <p>Deploying scalable solutions on the cloud.</p>
+                <h3>Cloud & AI</h3>
+                <p>Deploying scalable solutions on cloud platforms with focus on Azure and AI fundamentals.</p>
                 <div class="tags">
                     <span class="tag">Azure (AZ-204)</span>
+                    <span class="tag">Azure AI (AI-900)</span>
                     <span class="tag">AWS Solutions</span>
                     <span class="tag">Firebase</span>
+                    <span class="tag">DevOps</span>
                 </div>
             </div>
         </div>
         
         <div style="margin-top: 50px;" class="reveal">
-            <h3 style="color: var(--primary); margin-bottom: 20px;">📜 Certifications</h3>
+            <h3 style="color: var(--primary); margin-bottom: 20px;">📜 Certifications & Achievements</h3>
             <ul style="list-style: none; color: var(--text-gray);">
-                <li style="margin-bottom: 10px;">✅ Azure AI Fundamentals (AI-900) — Microsoft</li>
-                <li style="margin-bottom: 10px;">✅ Microsoft Azure Developer Associate (AZ-204)</li>
+                <li style="margin-bottom: 10px;">✅ <strong>Azure AI Fundamentals (AI-900)</strong> — Microsoft</li>
+                <li style="margin-bottom: 10px;">✅ <strong>Microsoft Azure Developer Associate (AZ-204)</strong></li>
                 <li style="margin-bottom: 10px;">✅ Azure Fundamentals (AZ-900)</li>
                 <li style="margin-bottom: 10px;">✅ AWS APAC Solutions Architecture Job Simulation</li>
                 <li style="margin-bottom: 10px;">✅ Web Designer Certification</li>
+                <li style="margin-bottom: 10px;">✅ Full-Stack Development Diploma (WeThinkCode_)</li>
+                <li style="margin-bottom: 10px;">✅ Peer Mentor — Helping 15+ developers improve their coding skills</li>
             </ul>
         </div>
     </section>
@@ -501,83 +597,87 @@
         <div class="grid">
             
             <div class="card reveal">
-                <h3>Kasi Kapital</h3>
-                <p>A web platform connecting township businesses with investors for job creation.</p>
+                <h3>🏢 Kasi Kapital</h3>
+                <p><strong>Problem:</strong> Small township businesses struggle to access investors and build a digital presence.</p>
+                <p><strong>Solution:</strong> Built a platform connecting township businesses with investors for job creation and economic empowerment.</p>
                 <div class="tags">
                     <span class="tag">React</span>
-                    <span class="tag">Tailwind</span>
+                    <span class="tag">Tailwind CSS</span>
                     <span class="tag">Firebase</span>
+                    <span class="tag">Social Impact</span>
                 </div>
                 <div style="margin-top: 15px;">
-                    <a href="https://github.com/Yolanda-loo/Kasi-Kapital.github.io" target="_blank" style="color:var(--primary); margin-right: 15px;">Repo 1</a>
-                    <a href="https://github.com/Yolanda-loo/KasiKoin" target="_blank" style="color:var(--primary);">Repo 2</a>
+                    <a href="https://github.com/Yolanda-loo/Kasi-Kapital.github.io" target="_blank" style="color:var(--primary); margin-right: 15px;">GitHub</a>
+                    <a href="https://github.com/Yolanda-loo/KasiKoin" target="_blank" style="color:var(--primary);">Related Project</a>
                 </div>
             </div>
 
             <div class="card reveal">
-                <h3>Pay Flow Ubuntu</h3>
-                <p>A secure fintech interface designed for seamless transaction processing and user experience.</p>
+                <h3>💰 Pay Flow Ubuntu</h3>
+                <p><strong>Problem:</strong> Users needed a seamless, secure fintech interface for transactions.</p>
+                <p><strong>Solution:</strong> Designed and built a secure fintech UI prioritizing user experience and transaction security.</p>
                 <div class="tags">
                     <span class="tag">FinTech</span>
                     <span class="tag">Web Dev</span>
-                    <span class="tag">UX/UI</span>
+                    <span class="tag">UX/UI Design</span>
+                    <span class="tag">Security</span>
                 </div>
-                <a href="https://github.com/Yolanda-loo/Pay_flow_ubuntu-new-version" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+                <a href="https://github.com/Yolanda-loo/Pay_flow_ubuntu-new-version" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Repository →</a>
             </div>
 
             <div class="card reveal">
-                <h3>Cognita</h3>
-                <p>Innovative tech solution focused on education and logic processing.</p>
+                <h3>🧠 Cognita</h3>
+                <p><strong>Problem:</strong> Students needed an intelligent tool for logic and algorithm understanding.</p>
+                <p><strong>Solution:</strong> Created an educational tech solution focused on problem-solving and algorithm education.</p>
                 <div class="tags">
                     <span class="tag">Software Dev</span>
                     <span class="tag">Algorithms</span>
+                    <span class="tag">Education Tech</span>
                 </div>
-                <a href="https://github.com/Yolanda-loo/Cognita.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+                <a href="https://github.com/Yolanda-loo/Cognita.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code →</a>
             </div>
 
             <div class="card reveal">
-                <h3>QR Contact Share</h3>
-                <p>A digital business card solution using QR technology for instant networking.</p>
+                <h3>📇 QR Contact Share</h3>
+                <p><strong>Problem:</strong> Manual business card sharing is inefficient and outdated.</p>
+                <p><strong>Solution:</strong> Built a digital business card solution using QR technology for instant networking.</p>
                 <div class="tags">
-                    <span class="tag">Utility</span>
                     <span class="tag">JavaScript</span>
+                    <span class="tag">QR Technology</span>
+                    <span class="tag">Networking Tool</span>
                 </div>
-                <a href="https://github.com/Yolanda-loo/qr-contact-share.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+                <a href="https://github.com/Yolanda-loo/qr-contact-share.github.io" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code →</a>
             </div>
 
             <div class="card reveal">
-                <h3>Task Manager App</h3>
-                <p>A secure task manager with user authentication and a clean UI.</p>
+                <h3>✅ Task Manager App</h3>
+                <p><strong>Problem:</strong> Users needed a secure task management tool with user authentication.</p>
+                <p><strong>Solution:</strong> Developed a full-stack task manager with authentication, database management, and clean UI.</p>
                 <div class="tags">
                     <span class="tag">Flask</span>
                     <span class="tag">PostgreSQL</span>
-                    <span class="tag">Tailwind</span>
+                    <span class="tag">Authentication</span>
+                    <span class="tag">Tailwind CSS</span>
                 </div>
-                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code &rarr;</a>
+                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" style="display:block; margin-top:15px; color:var(--primary);">View Code →</a>
             </div>
 
             <div class="card reveal">
-                <h3>Investable Personal Assistant</h3>
-                <p>An investment-focused personal assistant tool built to support research, planning, and productivity in finance-related tasks.</p>
-                <div class="tags">
-                    <span class="tag">AI Assistant</span>
-                    <span class="tag">Finance</span>
-                    <span class="tag">Productivity</span>
-                </div>
-            </div>
-
-             <div class="card reveal">
-                <h3>Power BI Dashboards</h3>
-                <p>Developed management dashboards for scheduling and business analysis at Volkswagen.</p>
+                <h3>📊 Power BI Dashboards</h3>
+                <p><strong>Impact:</strong> Developed business intelligence dashboards for scheduling and management at Volkswagen.</p>
+                <p><strong>Result:</strong> Created actionable dashboards for real-world business decision-making.</p>
                 <div class="tags">
                     <span class="tag">Power BI</span>
                     <span class="tag">Data Analysis</span>
+                    <span class="tag">Business Intelligence</span>
+                    <span class="tag">Enterprise</span>
                 </div>
             </div>
         </div>
 
         <div style="text-align: center; margin-top: 100px;" class="reveal">
-            <h3 style="margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; color: var(--text-gray);">Live Coding Activity</h3>
+            <h3 style="margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; color: var(--text-gray);">My Coding Activity</h3>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">Check out my GitHub for active development and contributions:</p>
             <img src="https://ghchart.rshah.org/00f2ff/Yolanda-loo" alt="Tebogo's Github Chart" style="width: 100%; max-width: 800px; filter: invert(0.9) hue-rotate(180deg); opacity: 0.8;">
         </div>
     </section>
@@ -589,25 +689,25 @@
                 <span class="year">2024 - 2025</span>
                 <div class="role">Software Engineering Student & Peer Mentor</div>
                 <div class="company">WeThinkCode_</div>
-                <p style="color:var(--text-gray); margin-top:10px;">While completing my diploma, I developed my software engineering skills and supported peers through coding challenges, collaborative learning, and technical mentoring.</p>
+                <p style="color:var(--text-gray); margin-top:10px;">Completed full-stack development diploma while mentoring 15+ peers. Developed strong problem-solving skills, collaborative mindset, and leadership through code reviews, technical guidance, and peer support.</p>
             </div>
             <div class="timeline-item reveal">
                 <span class="year">2023 - 2024</span>
                 <div class="role">Investable Personal Assistant</div>
                 <div class="company">Personal Project</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Created an investment-oriented personal assistant concept focused on productivity, research support, and practical financial decision-making tools.</p>
+                <p style="color:var(--text-gray); margin-top:10px;">Created an investment-focused AI assistant concept. Developed skills in AI integration, product thinking, and financial technology. Explored how intelligent systems can support decision-making.</p>
             </div>
             <div class="timeline-item reveal">
                 <span class="year">2020 - 2021</span>
                 <div class="role">Assistant Administrator</div>
                 <div class="company">Founder Institute South Africa</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Supporting tech entrepreneurs with strategic thinking and administrative functions.</p>
+                <p style="color:var(--text-gray); margin-top:10px;">Supported tech entrepreneurs with strategic thinking and administrative excellence. Gained exposure to startup ecosystems and business operations.</p>
             </div>
             <div class="timeline-item reveal">
                 <span class="year">VOLUNTEER</span>
                 <div class="role">Community Wellness</div>
                 <div class="company">Higher Health SA</div>
-                <p style="color:var(--text-gray); margin-top:10px;">Volunteer for health screenings, promoting community wellness.</p>
+                <p style="color:var(--text-gray); margin-top:10px;">Active volunteer for health screenings and community wellness initiatives. Committed to social impact and giving back to the community.</p>
             </div>
         </div>
     </section>
@@ -642,36 +742,39 @@
         </div>
 
         <h2 style="font-size: 3rem; margin-bottom: 20px;" class="reveal">Ready to collaborate?</h2>
-        <p style="color: var(--text-gray); margin-bottom: 40px;" class="reveal">I am currently available for Software Engineering roles.</p>
+        <p style="color: var(--text-gray); margin-bottom: 40px;" class="reveal">I'm actively looking for software engineering opportunities and eager to contribute to innovative projects.</p>
         
         <div style="margin-bottom: 40px;" class="reveal">
             <p style="font-size: 1.2rem; margin-bottom: 10px;">
                 <i class="fas fa-envelope" style="color: var(--primary); margin-right: 10px;"></i> 
-                tebogomathaba09@gmail.com
+                <strong>tebogomathaba09@gmail.com</strong>
             </p>
             <p style="font-size: 1.2rem;">
                 <i class="fas fa-phone" style="color: var(--primary); margin-right: 10px;"></i> 
-                074 054 4802
+                <strong>074 054 4802</strong>
             </p>
         </div>
 
-        <a href="mailto:tebogomathaba09@gmail.com" class="btn-glow reveal">Initialize Contact</a>
+        <a href="mailto:tebogomathaba09@gmail.com" class="btn-primary reveal">
+            <i class="fas fa-envelope"></i> Send Me an Email
+        </a>
+        <a href="https://docs.google.com/document/d/1qS8f-kiCzreV8_a3-S3S4qAl9mxh7-UEKqMgDRaxLVM/export?format=pdf" target="_blank" class="btn-glow reveal">
+            <i class="fas fa-file-download"></i> Download Resume
+        </a>
+
         <div style="margin-top: 50px; color: var(--border);">
-            <a href="https://github.com/tebogomathaba" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/Yolanda-loo" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='white'"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='white'"><i class="fa-brands fa-linkedin"></i></a>
         </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-gray);">
-            Alternate Portfolio: <a href="https://yolanda-loo.github.io/tebogomathaba.github.io/" target="_blank" style="color: var(--primary);">View Here</a>
-        </p>
     </section>
 
-    <a href="#" class="floating-cv">
+    <a href="https://docs.google.com/document/d/1qS8f-kiCzreV8_a3-S3S4qAl9mxh7-UEKqMgDRaxLVM/export?format=pdf" target="_blank" class="floating-cv">
         <i class="fas fa-file-download"></i> Download CV
     </a>
 
     <script>
         const textElement = document.getElementById('typing-text');
-        const phrases = ['Software Engineer', 'Data Analyst', 'Full-Stack Developer', 'Power BI Specialist'];
+        const phrases = ['Software Engineer', 'Full-Stack Developer', 'Data Analyst', 'AI & Cloud Enthusiast'];
         let phraseIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -720,7 +823,7 @@
             scrollProgress.style.width = scrolled + "%";
         });
 
-        document.querySelectorAll('a, .card, .btn-glow, .floating-cv').forEach(item => {
+        document.querySelectorAll('a, .card, .btn-glow, .btn-primary, .floating-cv').forEach(item => {
             item.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
                 cursor.style.borderColor = '#00f2ff';
@@ -817,10 +920,11 @@
         const termOutput = document.getElementById('terminal-output');
 
         const commands = {
-            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Toolbox<br> - <span style='color:var(--primary)'>contact</span>: Contact Info<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
-            about: "I am Tebogo Mathaba 👨🏾‍💻. Aspiring Software Engineer and Data Analyst with a passion for business management.",
-            stack: "Python, Java, JavaScript, C#, SQL, Power BI, Flask, React, Tailwind, Azure.",
-            contact: "Email: tebogomathaba09@gmail.com | Phone: 074 054 4802",
+            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Skills<br> - <span style='color:var(--primary)'>contact</span>: Contact Info<br> - <span style='color:var(--primary)'>projects</span>: My Work<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
+            about: "I am Tebogo Mathaba 👨🏾‍💻. A passionate Software Engineer and Data Analyst dedicated to building practical solutions that create real impact.",
+            stack: "Frontend: React, JavaScript, Tailwind CSS | Backend: Python, Flask, Java, C# | Data: Power BI, SQL, PostgreSQL | Cloud: Azure (AZ-204, AI-900), AWS, Firebase",
+            projects: "Kasi Kapital | Pay Flow Ubuntu | Cognita | QR Contact Share | Task Manager App | Power BI Dashboards",
+            contact: "Email: tebogomathaba09@gmail.com | Phone: 074 054 4802 | LinkedIn: tebogo-mathaba-835b42207",
             clear: "CLEAR_SCREEN",
             sudo: "Access Denied: You need to hire me first. 😉"
         };
