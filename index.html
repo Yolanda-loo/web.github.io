@@ -1,3 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebogo Mathaba | Software Engineer & Full-Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --primary: #00f2ff; /* Cyber Cyan */
+            --secondary: #7000ff; /* Electric Purple */
+            --accent: #ff006e; /* Hot Pink */
+            --text: #ffffff;
+            --text-gray: #a1a1aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. SCROLL PROGRESS BAR --- */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 10000;
+            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.1s;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+            transform: translate(-50%, -50%);
+        }
+        #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- ANIMATED BACKGROUND --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        /* --- 2. GLITCH EFFECT --- */
+        .glitch {
+            position: relative;
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #fff;
+            letter-spacing: -2px;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(30px, 9999px, 10px, 0); }
+            5% { clip: rect(80px, 9999px, 90px, 0); }
+            10% { clip: rect(30px, 9999px, 10px, 0); }
+            100% { clip: rect(30px, 9999px, 10px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(10px, 9999px, 80px, 0); }
+            5% { clip: rect(90px, 9999px, 20px, 0); }
+            10% { clip: rect(10px, 9999px, 80px, 0); }
+            100% { clip: rect(10px, 9999px, 80px, 0); }
+        }
+
+        .typewriter {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            font-family: 'Space Grotesk', monospace;
+            height: 40px; 
+        }
+
+        .cursor-blink {
+            animation: blink 1s infinite;
+            color: var(--primary);
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .btn-glow {
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .btn-glow:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .btn-primary {
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.8);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-header {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        /* --- CARDS --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 15px;
+            transition: 0.1s;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: var(--glass-hover);
+            box-shadow: 0 10px 40px -10px rgba(0, 242, 255, 0.1);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .tags {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-gray);
+            font-family: monospace;
+        }
+
+        /* --- OPEN TO WORK BADGE --- */
+        .open-to-work {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        }
+
+        .open-to-work h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .open-to-work p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .open-to-work .role-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .open-to-work .role-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- TIMELINE --- */
+        .timeline-item {
+            border-left: 2px solid var(--border);
+            padding-left: 30px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .year {
+            color: var(--primary);
+            font-family: monospace;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .role { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+        .company { font-size: 1rem; color: var(--text-gray); }
+
+        /* --- QUOTE BOX --- */
+        .quote-box {
+            text-align: center;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.01);
+            font-style: italic;
+            font-family: 'Space Grotesk', serif;
+        }
+
+        /* --- 3. FLOATING CV BUTTON --- */
+        .floating-cv {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            z-index: 100;
+            transition: 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .floating-cv:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.8);
+            background: #fff;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .glitch { font-size: 3rem; }
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            #cursor, #cursor-dot { display: none; }
+            * { cursor: auto; }
+            .floating-cv { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.9rem; }
+            .btn-glow, .btn-primary { margin-top: 15px; display: block; width: 100%; text-align: center; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+
+    <div id="cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <canvas id="canvas-container"></canvas>
+
+    <nav>
+        <div class="logo">Tebogo<span>.Dev</span></div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Stack</a>
+            <a href="#projects">Work</a>
+            <a href="#terminal-section">Terminal</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="about">
+        <div class="hero-subtitle">Hello, I am</div>
+        <h1 class="glitch" data-text="Tebogo Mathaba">Tebogo Mathaba</h1>
+        <div class="typewriter"><span id="typing-text"></span><span class="cursor-blink">_</span></div>
+        <p style="margin-top: 20px; max-width: 600px; color: var(--text-gray); font-size: 1.1rem;">
+            Software Engineer | Full-Stack Developer | Azure AI Fundamentals (AI-900)
+        </p>
+        <p style="margin-top: 15px; max-width: 600px; color: var(--text-gray);">
+            I build practical, user-focused digital solutions that combine technology, problem-solving, and business impact.
+        </p>
+        <div style="margin-top: 30px;">
+            <a href="#contact" class="btn-primary">
+                <i class="fas fa-envelope"></i> Let's Work Together
+            </a>
+            <a href="https://docs.google.com/document/d/1qS8f-kiCzreV8_a3-S3S4qAl9mxh7-UEKqMgDRaxLVM/export?format=pdf&usp=sharing" target="_blank" rel="noopener noreferrer" download="Tebogo-Mathaba-CV.pdf" class="btn-glow">
+                <i class="fas fa-file-pdf"></i> Download CV
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="open-to-work reveal">
+            <h4>🚀 Open to Opportunities</h4>
+            <p>Actively seeking software engineering roles, internships, and junior developer positions.</p>
+            <div class="role-list">
+                <div class="role-tag">Full-Stack Development</div>
+                <div class="role-tag">Software Engineering</div>
+                <div class="role-tag">Data Analysis</div>
+                <div class="role-tag">Cloud Solutions</div>
+            </div>
+        </div>
+
+        <h2 class="section-header reveal">About Me</h2>
+        <div class="grid">
+            <div class="card reveal" style="grid-column: span 3;">
+                <h3>My Mission</h3>
+                <p>
+                    I'm a passionate Software Engineer and Data Analyst dedicated to creating practical digital solutions that solve real-world problems. With a foundation in full-stack development, I specialize in building user-centric applications that deliver measurable business value.
+                </p>
+                <br>
+                <p>
+                    Currently diving deeper into software engineering at <strong>WeThinkCode_</strong>, I'm also exploring AI and data-driven applications. I'm particularly interested in building scalable systems and contributing to innovative projects that drive social and economic impact.
+                </p>
+                <br>
+                <p>
+                    <i class="fas fa-map-marker-alt" style="font-size: 1rem; margin-right: 5px; color: var(--primary);"></i> Johannesburg, Gauteng, South Africa
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-header reveal">Tech Toolbox</h2>
+        <div class="grid">
+            <div class="card reveal">
+                <i class="fa-brands fa-python"></i>
+                <h3>Full Stack & Scripts</h3>
+                <p>Building secure, scalable web applications and automation solutions from frontend to backend.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Tailwind CSS</span>
+                </div>
+            </div>
+            <div class="card reveal">
+                <i class="fa-solid fa-database"></i>
+                <h3>Data & Analytics</h3>
+                <p>Transforming data into actionable insights through dashboards, analysis, and visualization.</p>
+                <div class="tags">
+                    <span class="tag">Power BI</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Data Analysis</span>
+                    <span class="tag">PostgreSQL</span>
+                </div>
+            </div>
+            <div class="card reveal">
+                <i class="fa-brands fa-aws"></i>
+                <h3>Cloud & AI</h3>
+                <p>Deploying scalable solutions on cloud platforms with focus on Azure and AI fundamentals.</p>
+                <div class="tags">
+                    <span class="tag">Azure (AZ-204)</span>
+                    <span class="tag">Azure AI (AI-900)</span>
+                    <span class="tag">AWS Solutions</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">DevOps</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 50px;" class="reveal">
+            <h3 style="color: var(--primary); margin-bottom: 20px;">📜 Certifications & Achievements</h3>
+            <ul style="list-style: none; color: var(--text-gray);">
+                <li style="margin-bottom: 10px;">✅ <strong>Azure AI Fundamentals (AI-900)</strong> — Microsoft</li>
+                <li style="margin-bottom: 10px;">✅ <strong>Microsoft Azure Developer Associate (AZ-204)</strong></li>
+                <li style="margin-bottom: 10px;">✅ Azure Fundamentals (AZ-900)</li>
+                <li style="margin-bottom: 10px;">✅ AWS APAC Solutions Architecture Job Simulation</li>
+                <li style="margin-bottom: 10px;">✅ Web Designer Certification</li>
+                <li style="margin-bottom: 10px;">✅ Full-Stack Development Diploma (WeThinkCode_)</li>
+                <li style="margin-bottom: 10px;">✅ Peer Mentor — Helping 15+ developers improve their coding skills</li>
+            </ul>
+        </div>
+    </section>
+
     <section id="projects">
         <h2 class="section-header reveal">Featured Projects</h2>
         <div class="grid">
@@ -11,9 +605,9 @@
                     <span class="tag">Firebase</span>
                     <span class="tag">Social Impact</span>
                 </div>
-                <div style="margin-top: 15px; display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://yolanda-loo.github.io/Kasi-Kapital.github.io/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">Live Demo</a>
-                    <a href="https://github.com/Yolanda-loo/Kasi-Kapital.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">GitHub</a>
+                <div style="margin-top: 15px;">
+                    <a href="https://github.com/Yolanda-loo/Kasi-Kapital.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--primary); margin-right: 15px;">GitHub</a>
+                    <a href="https://github.com/Yolanda-loo/KasiKoin" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">Related Project</a>
                 </div>
             </div>
 
@@ -27,10 +621,19 @@
                     <span class="tag">UX/UI Design</span>
                     <span class="tag">Security</span>
                 </div>
-                <div style="margin-top: 15px; display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://yolanda-loo.github.io/Pay_flow_ubuntu-new-version/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">Live Demo</a>
-                    <a href="https://github.com/Yolanda-loo/Pay_flow_ubuntu-new-version" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">GitHub</a>
+                <a href="https://github.com/Yolanda-loo/Pay_flow_ubuntu-new-version" target="_blank" rel="noopener noreferrer" style="display:block; margin-top:15px; color:var(--primary);">View Repository →</a>
+            </div>
+
+            <div class="card reveal">
+                <h3>🧠 Cognita</h3>
+                <p><strong>Problem:</strong> Students needed an intelligent tool for logic and algorithm understanding.</p>
+                <p><strong>Solution:</strong> Created an educational tech solution focused on problem-solving and algorithm education.</p>
+                <div class="tags">
+                    <span class="tag">Software Dev</span>
+                    <span class="tag">Algorithms</span>
+                    <span class="tag">Education Tech</span>
                 </div>
+                <a href="https://github.com/Yolanda-loo/Cognita.github.io" target="_blank" rel="noopener noreferrer" style="display:block; margin-top:15px; color:var(--primary);">View Code →</a>
             </div>
 
             <div class="card reveal">
@@ -42,9 +645,31 @@
                     <span class="tag">QR Technology</span>
                     <span class="tag">Networking Tool</span>
                 </div>
-                <div style="margin-top: 15px; display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://yolanda-loo.github.io/qr-contact-share.github.io/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">Live Demo</a>
-                    <a href="https://github.com/Yolanda-loo/qr-contact-share.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">GitHub</a>
+                <a href="https://github.com/Yolanda-loo/qr-contact-share.github.io" target="_blank" rel="noopener noreferrer" style="display:block; margin-top:15px; color:var(--primary);">View Code →</a>
+            </div>
+
+            <div class="card reveal">
+                <h3>✅ Task Manager App</h3>
+                <p><strong>Problem:</strong> Users needed a secure task management tool with user authentication.</p>
+                <p><strong>Solution:</strong> Developed a full-stack task manager with authentication, database management, and clean UI.</p>
+                <div class="tags">
+                    <span class="tag">Flask</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Authentication</span>
+                    <span class="tag">Tailwind CSS</span>
+                </div>
+                <a href="https://github.com/Yolanda-loo/To-Do-List" target="_blank" rel="noopener noreferrer" style="display:block; margin-top:15px; color:var(--primary);">View Code →</a>
+            </div>
+
+            <div class="card reveal">
+                <h3>📊 Power BI Dashboards</h3>
+                <p><strong>Impact:</strong> Developed business intelligence dashboards for scheduling and management at Volkswagen.</p>
+                <p><strong>Result:</strong> Created actionable dashboards for real-world business decision-making.</p>
+                <div class="tags">
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Data Analysis</span>
+                    <span class="tag">Business Intelligence</span>
+                    <span class="tag">Enterprise</span>
                 </div>
             </div>
         </div>
@@ -55,3 +680,307 @@
             <img src="https://ghchart.rshah.org/00f2ff/Yolanda-loo" alt="Tebogo's Github Chart" style="width: 100%; max-width: 800px; filter: invert(0.9) hue-rotate(180deg); opacity: 0.8;">
         </div>
     </section>
+
+    <section id="experience">
+        <h2 class="section-header reveal">Community & Leadership</h2>
+        <div style="max-width: 800px;">
+            <div class="timeline-item reveal">
+                <span class="year">2024 - 2025</span>
+                <div class="role">Software Engineering Student & Peer Mentor</div>
+                <div class="company">WeThinkCode_</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Completed full-stack development diploma while mentoring 15+ peers. Developed strong problem-solving skills, collaborative mindset, and deep understanding of software architecture and design patterns.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <span class="year">2023 - 2024</span>
+                <div class="role">Investable Personal Assistant</div>
+                <div class="company">Personal Project</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Created an investment-focused AI assistant concept. Developed skills in AI integration, product thinking, and financial technology development.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <span class="year">2020 - 2021</span>
+                <div class="role">Assistant Administrator</div>
+                <div class="company">Founder Institute South Africa</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Supported tech entrepreneurs with strategic thinking and administrative excellence. Gained exposure to startup ecosystems and business development.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <span class="year">VOLUNTEER</span>
+                <div class="role">Community Wellness</div>
+                <div class="company">Higher Health SA</div>
+                <p style="color:var(--text-gray); margin-top:10px;">Active volunteer for health screenings and community wellness initiatives. Committed to social impact and giving back to the community.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="terminal-section" style="padding-top: 0;">
+        <h2 class="section-header reveal">System Access</h2>
+        <div class="terminal-window reveal" style="background: #0d1117; border: 1px solid #30363d; border-radius: 6px; font-family: 'Consolas', monospace; overflow: hidden; max-width: 800px;">
+            <div style="background: #161b22; padding: 10px; display: flex; gap: 8px; border-bottom: 1px solid #30363d;">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
+                <div style="margin-left: auto; color: #8b949e; font-size: 0.8rem;">guest@tebogo-mathaba:~</div>
+            </div>
+            <div id="terminal-body" style="padding: 20px; color: #c9d1d9; min-height: 300px; font-size: 0.9rem;">
+                <div style="margin-bottom: 10px;">Welcome to TebogoOS v2.0.0</div>
+                <div style="margin-bottom: 20px;">Type <span style="color: var(--primary);">help</span> to see available commands.</div>
+                
+                <div id="terminal-output"></div>
+                
+                <div style="display: flex; align-items: center; margin-top: 10px;">
+                    <span style="color: var(--primary); margin-right: 10px;">➜</span>
+                    <input type="text" id="terminal-input" autocomplete="off" style="background: transparent; border: none; color: #fff; font-family: inherit; font-size: inherit; width: 100%; outline: none;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="text-align: center; padding-bottom: 50px;" id="contact">
+        <div class="quote-box reveal">
+            "From hesitation to celebration! Pushing through challenges fuels growth."
+            <br><span style="color: var(--primary); font-size: 0.8rem; margin-top: 10px; display: block;">— Tebogo Mathaba</span>
+        </div>
+
+        <h2 style="font-size: 3rem; margin-bottom: 20px;" class="reveal">Ready to collaborate?</h2>
+        <p style="color: var(--text-gray); margin-bottom: 40px;" class="reveal">I'm actively looking for software engineering opportunities and eager to contribute to innovative projects.</p>
+        
+        <div style="margin-bottom: 40px;" class="reveal">
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">
+                <i class="fas fa-envelope" style="color: var(--primary); margin-right: 10px;"></i> 
+                <strong>tebogomathaba09@gmail.com</strong>
+            </p>
+            <p style="font-size: 1.2rem;">
+                <i class="fas fa-phone" style="color: var(--primary); margin-right: 10px;"></i> 
+                <strong>074 054 4802</strong>
+            </p>
+        </div>
+
+        <a href="mailto:tebogomathaba09@gmail.com" class="btn-primary reveal">
+            <i class="fas fa-envelope"></i> Send Me an Email
+        </a>
+        <a href="https://docs.google.com/document/d/1qS8f-kiCzreV8_a3-S3S4qAl9mxh7-UEKqMgDRaxLVM/export?format=pdf&usp=sharing" target="_blank" rel="noopener noreferrer" download="Tebogo-Mathaba-CV.pdf" class="btn-glow reveal">
+            <i class="fas fa-file-download"></i> Download Resume
+        </a>
+
+        <div style="margin-top: 50px; color: var(--border);">
+            <a href="https://github.com/Yolanda-loo" target="_blank" rel="noopener noreferrer" style="color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='white'">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/tebogo-mathaba-835b42207" target="_blank" rel="noopener noreferrer" style="color: white; margin: 0 10px; font-size: 1.5rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='white'">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
+    </section>
+
+    <a href="https://docs.google.com/document/d/1qS8f-kiCzreV8_a3-S3S4qAl9mxh7-UEKqMgDRaxLVM/export?format=pdf&usp=sharing" target="_blank" rel="noopener noreferrer" download="Tebogo-Mathaba-CV.pdf" class="floating-cv">
+        <i class="fas fa-file-download"></i> Download CV
+    </a>
+
+    <script>
+        const textElement = document.getElementById('typing-text');
+        const phrases = ['Software Engineer', 'Full-Stack Developer', 'Data Analyst', 'AI & Cloud Enthusiast'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; 
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        const scrollProgress = document.getElementById('scroll-progress');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + "%";
+        });
+
+        document.querySelectorAll('a, .card, .btn-glow, .btn-primary, .floating-cv').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursor.style.borderColor = '#00f2ff';
+                cursor.style.backgroundColor = 'rgba(0, 242, 255, 0.1)';
+            });
+            item.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.borderColor = '#00f2ff';
+                cursor.style.backgroundColor = 'transparent';
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() * 1.5) - 0.75;
+                this.speedY = (Math.random() * 1.5) - 0.75;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${1 - distance/100})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        const termInput = document.getElementById('terminal-input');
+        const termOutput = document.getElementById('terminal-output');
+
+        const commands = {
+            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Skills<br> - <span style='color:var(--primary)'>projects</span>: My Projects<br> - <span style='color:var(--primary)'>contact</span>: Contact Info<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
+            about: "I am Tebogo Mathaba 👨🏾‍💻. A passionate Software Engineer and Data Analyst dedicated to building practical solutions that create real impact.",
+            stack: "Frontend: React, JavaScript, Tailwind CSS | Backend: Python, Flask, Java, C# | Data: Power BI, SQL, PostgreSQL | Cloud: Azure (AZ-204, AI-900), AWS, Firebase",
+            projects: "Kasi Kapital | Pay Flow Ubuntu | Cognita | QR Contact Share | Task Manager App | Power BI Dashboards",
+            contact: "Email: tebogomathaba09@gmail.com | Phone: 074 054 4802 | LinkedIn: tebogo-mathaba-835b42207",
+            clear: "CLEAR_SCREEN",
+            sudo: "Access Denied: You need to hire me first. 😉"
+        };
+
+        termInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.toLowerCase().trim();
+                let response = "";
+
+                const userLine = document.createElement('div');
+                userLine.innerHTML = `<span style="color: var(--primary);">➜</span> ${input}`;
+                userLine.style.margin = "5px 0";
+                termOutput.appendChild(userLine);
+
+                if (commands[input]) {
+                    if (commands[input] === "CLEAR_SCREEN") {
+                        termOutput.innerHTML = "";
+                    } else {
+                        response = commands[input];
+                    }
+                } else if (input !== "") {
+                    response = `Command not found: ${input}. Type 'help' for options.`;
+                }
+
+                if (response) {
+                    const respLine = document.createElement('div');
+                    respLine.innerHTML = response;
+                    respLine.style.marginBottom = "15px";
+                    respLine.style.color = "#8b949e";
+                    termOutput.appendChild(respLine);
+                }
+
+                this.value = "";
+                this.scrollIntoView();
+            }
+        });
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xRotation = -((y - rect.height/2) / 20); 
+                const yRotation = ((x - rect.width/2) / 20);   
+                
+                card.style.transform = `perspective(1000px) scale(1.02) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) scale(1) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
