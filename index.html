@@ -273,7 +273,6 @@
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 20px;
-            /* Floating Animation for Icons */
             animation: float 3s ease-in-out infinite;
         }
 
@@ -381,7 +380,7 @@
 
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .glitch { font-size: 3rem; } /* Adjusted for mobile */
+            .glitch { font-size: 3rem; }
             nav { padding: 20px; }
             .nav-links { display: none; }
             #cursor, #cursor-dot { display: none; }
@@ -488,6 +487,7 @@
         <div style="margin-top: 50px;" class="reveal">
             <h3 style="color: var(--primary); margin-bottom: 20px;">📜 Certifications</h3>
             <ul style="list-style: none; color: var(--text-gray);">
+                <li style="margin-bottom: 10px;">✅ Azure AI Fundamentals (AI-900) — Microsoft</li>
                 <li style="margin-bottom: 10px;">✅ Microsoft Azure Developer Associate (AZ-204)</li>
                 <li style="margin-bottom: 10px;">✅ Azure Fundamentals (AZ-900)</li>
                 <li style="margin-bottom: 10px;">✅ AWS APAC Solutions Architecture Job Simulation</li>
@@ -598,7 +598,7 @@
 
     <section id="terminal-section" style="padding-top: 0;">
         <h2 class="section-header reveal">System Access</h2>
-        <div class="terminal-window reveal" style="background: #0d1117; border: 1px solid #30363d; border-radius: 6px; font-family: 'Consolas', monospace; overflow: hidden; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div class="terminal-window reveal" style="background: #0d1117; border: 1px solid #30363d; border-radius: 6px; font-family: 'Consolas', monospace; overflow: hidden; max-width: 800px;">
             <div style="background: #161b22; padding: 10px; display: flex; gap: 8px; border-bottom: 1px solid #30363d;">
                 <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
                 <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
@@ -654,7 +654,6 @@
     </a>
 
     <script>
-        // --- 1. TYPEWRITER EFFECT (Updated Titles) ---
         const textElement = document.getElementById('typing-text');
         const phrases = ['Software Engineer', 'Data Analyst', 'Full-Stack Developer', 'Power BI Specialist'];
         let phraseIndex = 0;
@@ -687,8 +686,6 @@
         }
         document.addEventListener('DOMContentLoaded', type);
 
-
-        // --- 2. CUSTOM CURSOR & SCROLL PROGRESS ---
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
         const scrollProgress = document.getElementById('scroll-progress');
@@ -700,7 +697,6 @@
             cursorDot.style.top = e.clientY + 'px';
         });
 
-        // Scroll Progress Logic
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -708,7 +704,6 @@
             scrollProgress.style.width = scrolled + "%";
         });
 
-        // Hover effect for links
         document.querySelectorAll('a, .card, .btn-glow, .floating-cv').forEach(item => {
             item.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
@@ -722,8 +717,6 @@
             });
         });
 
-
-        // --- 3. SCROLL REVEAL ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -734,8 +727,6 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-
-        // --- 4. PARTICLE BACKGROUND ---
         const canvas = document.getElementById('canvas-container');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -806,12 +797,11 @@
         init();
         animate();
 
-        // --- 5. TERMINAL LOGIC (Updated for Tebogo) ---
         const termInput = document.getElementById('terminal-input');
         const termOutput = document.getElementById('terminal-output');
 
         const commands = {
-            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Toolbox<br> - <span style='color:var(--primary)'>contact</span>: Email me<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
+            help: "Available commands: <br> - <span style='color:var(--primary)'>about</span>: My Bio<br> - <span style='color:var(--primary)'>stack</span>: Tech Toolbox<br> - <span style='color:var(--primary)'>contact</span>: Contact Info<br> - <span style='color:var(--primary)'>clear</span>: Clear screen",
             about: "I am Tebogo Mathaba 👨🏾‍💻. Aspiring Software Engineer and Data Analyst with a passion for business management.",
             stack: "Python, Java, JavaScript, C#, SQL, Power BI, Flask, React, Tailwind, Azure.",
             contact: "Email: tebogomathaba09@gmail.com | Phone: 074 054 4802",
@@ -852,7 +842,6 @@
             }
         });
 
-        // --- 6. 3D TILT EFFECT ---
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
